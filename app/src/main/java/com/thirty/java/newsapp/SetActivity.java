@@ -1,10 +1,16 @@
 package com.thirty.java.newsapp;
 
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
 
 /**
@@ -22,7 +28,7 @@ public class SetActivity extends AppCompatActivity {
         mIndexButton = (Button) findViewById(R.id.index_button);
         mIndexButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -31,7 +37,7 @@ public class SetActivity extends AppCompatActivity {
         mCollectButton = (Button) findViewById(R.id.collect_button);
         mCollectButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(SetActivity.this, CollectActivity.class);
                 startActivity(intent);
                 finish();
