@@ -13,27 +13,15 @@
         android:layout_marginTop="8dp">
 
         <Button
-            android:id="@+id/my_collect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/my_collect"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="8dp"/>
-
-        <Button
             android:id="@+id/my_interest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:text="@string/my_interest"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/my_collect"/>
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="8dp"/>
 
         <Button
             android:id="@+id/my_history"
@@ -42,8 +30,8 @@
             android:background="@color/white"
             android:text="@string/my_history"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
             android:paddingLeft="8dp"
             android:layout_below="@id/my_interest"/>
 
@@ -52,10 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:text="@string/my_history"
+            android:text="@string/night_mode"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
             android:paddingLeft="8dp"
             android:layout_below="@id/my_history"/>
 
@@ -66,8 +54,8 @@
             android:background="@color/white"
             android:text="@string/no_image_mode"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
             android:paddingLeft="8dp"
             android:layout_below="@id/night_mode"/>
 
@@ -78,10 +66,10 @@
             android:background="@color/white"
             android:text="@string/clean_cache"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="left|center_vertical"
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
             android:paddingLeft="8dp"
-            android:layout_below="@id/my_history"/>
+            android:layout_below="@id/no_image_mode"/>
 
         <LinearLayout
             android:layout_width="match_parent"
