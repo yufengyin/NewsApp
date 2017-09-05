@@ -4,11 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
+import android.view.View;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Button mCollectButton, mSetButton;
     private News[] myDataset = new News[]{
             new News("fsy","tai qiang la"), new News("yyf","tai ruo la"),
             new News("fsy","tai qiang la"), new News("yyf","tai ruo la"),
@@ -33,7 +37,25 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
 
-        setContentView(R.layout.my_collect_view);
-        setContentView(R.layout.my_set_view);
+        //我的收藏切换
+        mCollectButton = (Button) findViewById(R.id.collect_button);
+        mCollectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, CollectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //设置界面切换
+        mSetButton = (Button) findViewById(R.id.set_button);
+        mSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, SetActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
