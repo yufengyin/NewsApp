@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView, mInterestView;

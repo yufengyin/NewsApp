@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.util.Log;
+import android.text.TextPaint;
 
 public class MyInterestAdapter extends RecyclerView.Adapter<MyInterestAdapter.ViewHolder> {
     private String[] mInterestDataset;
@@ -44,10 +46,20 @@ public class MyInterestAdapter extends RecyclerView.Adapter<MyInterestAdapter.Vi
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mInterestText.setText(mInterestDataset[position]);
+        holder.mInterestText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+//                字体加粗?
+//                TextPaint tp = holder.mInterestText.getPaint();
+//                tp.setFakeBoldText(true);
+
+                Log.i("Tag", holder.mInterestText.getText().toString());
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
