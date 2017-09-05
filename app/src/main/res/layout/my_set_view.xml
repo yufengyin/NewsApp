@@ -4,7 +4,36 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/my_collect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="@string/my_collect"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dp"/>
+
+        <Button
+            android:id="@+id/my_interest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="@string/my_interest"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dp"
+            android:layout_below="@id/my_collect"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,9 +74,9 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:text="@string/set_name"
-
                 android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </RelativeLayout>
 </LinearLayout>
