@@ -30,7 +30,7 @@
                 android:text="@string/index_name"
                 android:textColor="@color/grey"
                 />
-`
+
             <Button
                 android:id="@+id/collect_button"
                 style="?android:attr/buttonStyle"

@@ -9,4 +9,7 @@
     <string name="night_mode">夜间模式</string>
     <string name="no_image_mode">无图模式</string>
     <string name="clean_cache">清除缓存</string>
+    <string name="recommend">推荐</string>
+    <string name="health">健康</string>
+    <string name="sports">体育</string>
 </resources>
