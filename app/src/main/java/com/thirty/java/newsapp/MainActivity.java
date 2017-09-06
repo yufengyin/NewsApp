@@ -95,19 +95,6 @@ public class MainActivity extends AppCompatActivity {
              @Override
              public boolean onQueryTextChange(String newText) { return false; }
         });
-        //获取分享的菜单子组件
-        MenuItem shareItem = menu.findItem(R.id.share);
-        ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        //通过setShareIntent调用getDefaultIntent()获取所有具有分享功能的App
-        shareActionProvider.setShareIntent(getDefaultIntent());
         return super.onCreateOptionsMenu(menu);
     }
-     //设置可以调用手机内所有可以分享图片的应用
-     private Intent getDefaultIntent() {
-         Intent intent = new Intent();
-         intent.setAction(Intent.ACTION_SEND);
-         //这里的类型可以按需求设置
-         intent.setType("image/*");
-         return intent;
-     }
 }
