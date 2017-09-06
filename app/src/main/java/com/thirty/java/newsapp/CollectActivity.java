@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class CollectActivity extends AppCompatActivity {
     private SearchView searchView;
     private Button mIndexButton, mSetButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class CollectActivity extends AppCompatActivity {
         mIndexButton = (Button) findViewById(R.id.index_button);
         mIndexButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -38,17 +39,18 @@ public class CollectActivity extends AppCompatActivity {
         mSetButton = (Button) findViewById(R.id.set_button);
         mSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, SetActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //使用菜单填充器获取menu下的菜单资源文件
-        getMenuInflater().inflate(R.menu.search_share_menu, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
