@@ -94,9 +94,13 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
-                t.setGravity(Gravity.TOP, 0, 0);
-                t.show();
+                //Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
+                //t.setGravity(Gravity.TOP, 0, 0);
+                //t.show();
+
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
                 return false;
             }
 

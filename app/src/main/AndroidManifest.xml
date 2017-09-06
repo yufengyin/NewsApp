@@ -27,6 +27,11 @@
             android:name=".SetActivity">
 
         </activity>
+
+        <activity
+            android:name=".SearchActivity">
+
+        </activity>
     </application>
 
 </manifest>
