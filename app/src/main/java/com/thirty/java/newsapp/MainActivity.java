@@ -90,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("back", "clicked");
+            }
+        });
         //设置搜索的事件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -98,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
+                Log.i("back", "search");
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("query", query);
                 startActivity(intent);

@@ -21,7 +21,6 @@ import android.util.Log;
 
 public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
-    private Button mIndexButton, mSetButton;
     private String query;
     private Handler handler = new Handler(){
         @Override
@@ -37,6 +36,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
+
+
 
         Intent intent = getIntent();
         query = intent.getStringExtra("query");
