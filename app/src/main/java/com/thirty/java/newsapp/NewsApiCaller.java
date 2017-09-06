@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 
 public class NewsApiCaller {
-    private static Bundle getNewsBundleByUrl(String urlString) throws Exception
+    private static Bundle getBriefNewsArrayByUrl(String urlString) throws Exception
     {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -56,23 +56,25 @@ public class NewsApiCaller {
     public static Bundle getLatestNews(int pageNo, int pageSize) throws Exception
     {
         String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
-        return getNewsBundleByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
     }
     public static Bundle getLatestNews(int pageNo, int pageSize, int category) throws Exception
     {
         String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
-        return getNewsBundleByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
     }
     public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize) throws Exception
     {
         String param = "?keyword=" + keyword + "&pageNo=" + pageNo + "&pageSize=" + pageSize;
-        return getNewsBundleByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
     }
     public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize, int category) throws Exception
     {
         String param = "?keyword=" + keyword + "&pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
-        return getNewsBundleByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
     }
+
+
 }
 
 

@@ -41,7 +41,7 @@ public class SearchNewsByKeywordRunnable implements Runnable{
             handler.sendMessage(message);
         }
         catch (Exception e)
-        { Log.i("back", "failure in latestNewsRunnable(): " + e.toString()); }
+        { Log.i("back", "SearchNewsByKeywordRunnable(): " + e.toString()); }
     }
     Handler handler;
     String keyword;
