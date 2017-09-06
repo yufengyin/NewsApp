@@ -3,8 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="100"
         android:title="@string/search"
+        app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/cancel"
+        android:text="@string/cancel"
+        android:orderInCategory="200"
+        android:title="@string/cancel"
         app:showAsAction="always|collapseActionView" />
 </menu>

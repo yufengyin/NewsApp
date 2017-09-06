@@ -87,28 +87,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //使用菜单填充器获取menu下的菜单资源文件
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        //获取搜索的菜单组件
-        MenuItem menuItem = menu.findItem(R.id.search);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        //设置搜索的事件
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
-                //t.setGravity(Gravity.TOP, 0, 0);
-                //t.show();
-
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra("query", query);
-                startActivity(intent);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search:
+                Log.i("cancel","search");
+                Intent intent = new Intent(this,SearchActivity.class);
+                this.startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

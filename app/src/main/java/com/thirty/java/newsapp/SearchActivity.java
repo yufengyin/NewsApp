@@ -21,7 +21,6 @@ import android.util.Log;
 
 public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
-    private Button mIndexButton, mSetButton;
     private String query;
     private Handler handler = new Handler(){
         @Override
@@ -38,9 +37,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
 
+
+
         Intent intent = getIntent();
-        query = intent.getStringExtra("query");
-        Log.i("back", query);
+        //query = intent.getStringExtra("query");
+        //Log.i("back", query);
 
         GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 5);
         Thread thread = new Thread(runnable);
@@ -50,10 +51,12 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //使用菜单填充器获取menu下的菜单资源文件
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        getMenuInflater().inflate(R.menu.new_search_menu, menu);
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
+        menuItem.expandActionView();
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
         //设置搜索的事件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -69,6 +72,20 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.cancel:
+                Log.i("cancel","cancel");
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
