@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.util.Log;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Gravity;
@@ -93,9 +94,13 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
-                t.setGravity(Gravity.TOP, 0, 0);
-                t.show();
+                //Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
+                //t.setGravity(Gravity.TOP, 0, 0);
+                //t.show();
+
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
                 return false;
             }
 

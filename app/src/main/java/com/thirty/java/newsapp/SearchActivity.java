@@ -2,6 +2,7 @@ package com.thirty.java.newsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.util.Log;
 
 /**
  * Created by 321yy on 2017/9/6.
@@ -19,31 +21,17 @@ import android.widget.Toast;
 public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
     private Button mIndexButton, mSetButton;
+    private String query;
+    private Handler = 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
 
-        //首页切换
-        mIndexButton = (Button) findViewById(R.id.index_button);
-        mIndexButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        //设置界面切换
-        mSetButton = (Button) findViewById(R.id.set_button);
-        mSetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, SetActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        Intent intent = getIntent();
+        query = intent.getStringExtra("query");
+        //Log.i("query", query);
     }
 
     @Override
