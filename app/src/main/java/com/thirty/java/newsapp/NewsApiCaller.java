@@ -21,7 +21,7 @@ public class NewsApiCaller {
     {
         String GBKString = new String(urlString.getBytes(), "GBK");
         URL url = new URL(GBKString);
-        
+
         Log.i("search", urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);
