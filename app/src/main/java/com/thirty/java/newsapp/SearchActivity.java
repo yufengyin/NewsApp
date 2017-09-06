@@ -27,8 +27,9 @@ public class SearchActivity extends AppCompatActivity {
         public void handleMessage(Message message) {
             BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
             Log.i("back", String.valueOf(briefNewsArray.length));
-            for (int i = 0; i < briefNewsArray.length; i++)
-                Log.i("back", briefNewsArray[i].newsTitle);
+            Log.i("query", briefNewsArray[0].newsTitle);
+            //for (int i = 0; i < briefNewsArray.length; i++)
+             //   Log.i("back", briefNewsArray[i].newsTitle);
         }
     };
 
@@ -36,10 +37,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
-
-        GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 5);
-        Thread thread = new Thread(runnable);
-        thread.start();
     }
 
     @Override
@@ -55,9 +52,14 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast t = Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT);
-                t.setGravity(Gravity.TOP, 0, 0);
-                t.show();
+                //Toast t = Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT);
+                //t.setGravity(Gravity.TOP, 0, 0);
+                //t.show();
+
+                Log.i("back", "before query:" + query);
+                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 30);
+                Thread thread = new Thread(runnable);
+                thread.start();
                 return false;
             }
 

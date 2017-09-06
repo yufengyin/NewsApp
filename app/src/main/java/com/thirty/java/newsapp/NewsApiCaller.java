@@ -19,7 +19,10 @@ import org.json.JSONObject;
 public class NewsApiCaller {
     private static Bundle getBriefNewsArrayByUrl(String urlString) throws Exception
     {
-        URL url = new URL(urlString);
+        Log.i("search", urlString);
+        String gbkUrlString = new String(urlString.getBytes(), "GBK");
+        Log.i("search", gbkUrlString);
+        URL url = new URL(gbkUrlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);
         conn.setRequestMethod("GET");
@@ -29,6 +32,7 @@ public class NewsApiCaller {
             InputStream is = conn.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String responseString = br.readLine();
+            Log.i("inquery", responseString);
             JSONObject newsInJson = new JSONObject(responseString);
             // now newsInJson holds the result
             JSONArray newsListInJson = newsInJson.getJSONArray("list");
@@ -47,6 +51,7 @@ public class NewsApiCaller {
                         jsonObject.getString("news_Intro"));
             }
             Bundle bundle = new Bundle();
+            Log.i("inquery", briefNewsArray[0].newsTitle);
             bundle.putParcelableArray("briefNewsArray", briefNewsArray);
             return bundle;
         }
