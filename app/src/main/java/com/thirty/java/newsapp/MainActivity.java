@@ -8,12 +8,20 @@ import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
 import android.util.Log;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView, mInterestView;
     private RecyclerView.Adapter mAdapter, mInterestAdapter;
     private RecyclerView.LayoutManager mLayoutManager, mInterestLayoutManager;
     private Button mCollectButton, mSetButton;
+    private SearchView searchView;
     private News[] myDataset = new News[]{
             new News("fsy","tai qiang la"), new News("yyf","tai ruo la"),
             new News("fsy","tai qiang la"), new News("yyf","tai ruo la"),
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_index_view);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mInterestView = (RecyclerView) findViewById(R.id.my_interest_view);
         // use this setting to improve performance if you know that changes
@@ -65,6 +74,40 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //使用菜单填充器获取menu下的菜单资源文件
+        getMenuInflater().inflate(R.menu.search_share_menu,menu);
+        //获取搜索的菜单组件
+        MenuItem menuItem = menu.findItem(R.id.search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        //设置搜索的事件
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast t = Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT);
+                t.setGravity(Gravity.TOP,0,0);
+                t.show();
+                return false;
+            }
+             @Override
+             public boolean onQueryTextChange(String newText) { return false; }
+        });
+        //获取分享的菜单子组件
+        MenuItem shareItem = menu.findItem(R.id.share);
+        ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        //通过setShareIntent调用getDefaultIntent()获取所有具有分享功能的App
+        shareActionProvider.setShareIntent(getDefaultIntent());
+        return super.onCreateOptionsMenu(menu);
+    }
+     //设置可以调用手机内所有可以分享图片的应用
+     private Intent getDefaultIntent() {
+         Intent intent = new Intent();
+         intent.setAction(Intent.ACTION_SEND);
+         //这里的类型可以按需求设置
+         intent.setType("image/*");
+         return intent;
+     }
 }
