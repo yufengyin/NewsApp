@@ -14,13 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 
+import org.w3c.dom.Text;
+
 
 /**
  * Created by fansy on 2017/9/5.
  */
 
 public class NewsActivity extends AppCompatActivity {
-    private TextView mNewsTitle;
+    private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
     private Button mBackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,15 @@ public class NewsActivity extends AppCompatActivity {
 
         mNewsTitle = (TextView) findViewById(R.id.news_name);
         mNewsTitle.setText(briefNews.newsTitle);
+
+        mNewsAuthor = (TextView) findViewById(R.id.news_author);
+        mNewsAuthor.setText(briefNews.newsAuthor);
+
+        mNewsTime = (TextView) findViewById(R.id.news_time);
+        mNewsTime.setText(briefNews.newsTime);
+
+        mNewsContent = (TextView) findViewById(R.id.news_text);
+        mNewsContent.setText(briefNews.newsIntro);
 
         //退出新闻界面
         mBackButton = (Button) findViewById(R.id.back_button);
