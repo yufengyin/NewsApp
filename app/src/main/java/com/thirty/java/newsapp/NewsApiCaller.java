@@ -19,7 +19,8 @@ import org.json.JSONObject;
 public class NewsApiCaller {
     private static Bundle getBriefNewsArrayByUrl(String urlString) throws Exception
     {
-        URL url = new URL(urlString);
+        String GBKString = new String(urlString.getBytes(), "GBK");
+        URL url = new URL(GBKString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);
         conn.setRequestMethod("GET");

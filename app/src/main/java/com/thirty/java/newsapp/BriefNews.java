@@ -8,10 +8,11 @@ import android.os.Parcel;
  */
 
 public class BriefNews implements Parcelable{
+    private static final
     public String newsClassTag;
     public String newsAuthor;
     public String newsID;
-    public String newsPictures;
+    public String[] newsPictures;
     public String newsSource;
     public String newsTime;
     public String newsTitle;
