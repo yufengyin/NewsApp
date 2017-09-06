@@ -28,7 +28,7 @@ class NewsRunnable implements Runnable
             handler.sendMessage(message);
         }
         catch (Exception e)
-        { Log.d("back", "failure in latestNewsRunnable()"); }
+        { Log.i("back", "failure in latestNewsRunnable()" + e.toString()); }
     }
     Handler handler;
     int pageNo;

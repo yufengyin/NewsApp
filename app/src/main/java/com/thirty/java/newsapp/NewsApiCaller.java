@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class NewsApiCaller {
     public static Bundle getLatestNews(int pageNo, int pageSize) throws Exception
     {
-        String param = "?pageNo=" + pageNo + "&pageSize" + pageSize;
+        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
         URL url = new URL("http://166.111.68.66:2042/news/action/query/latest" + param);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);
