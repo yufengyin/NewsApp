@@ -43,23 +43,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.my_index_view);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mInterestView = (RecyclerView) findViewById(R.id.my_interest_view);
+        //mInterestView = (RecyclerView) findViewById(R.id.my_interest_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-        mInterestView.setHasFixedSize(true);
+        //mInterestView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mInterestLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mInterestView.setLayoutManager(mInterestLayoutManager);
+        //mInterestLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        //mInterestView.setLayoutManager(mInterestLayoutManager);
 
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
-        mInterestAdapter = new MyInterestAdapter(myInterestDataset);
-        mInterestView.setAdapter(mInterestAdapter);
+        //mInterestAdapter = new MyInterestAdapter(myInterestDataset);
+        //mInterestView.setAdapter(mInterestAdapter);
 
         //我的收藏切换
         mCollectButton = (Button) findViewById(R.id.collect_button);
