@@ -40,8 +40,8 @@ public class SearchActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        query = intent.getStringExtra("query");
-        Log.i("back", query);
+        //query = intent.getStringExtra("query");
+        //Log.i("back", query);
 
         NewsRunnable runnable = new NewsRunnable(handler, 1, 5);
         Thread thread = new Thread(runnable);
@@ -54,8 +54,9 @@ public class SearchActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.new_search_menu, menu);
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
+        menuItem.expandActionView();
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setIconifiedByDefault(false);
+
         //设置搜索的事件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -71,6 +72,20 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.cancel:
+                Log.i("cancel","cancel");
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -10,9 +10,8 @@
         app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/cancel"
-        app:actionViewClass="android.support.v7.widget.Button"
         android:text="@string/cancel"
         android:orderInCategory="200"
         android:title="@string/cancel"
-        app:showAsAction="always|collapseActionView"/>
+        app:showAsAction="always|collapseActionView" />
 </menu>
