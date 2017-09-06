@@ -3,6 +3,7 @@ package com.thirty.java.newsapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -22,7 +23,15 @@ public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
     private Button mIndexButton, mSetButton;
     private String query;
-    private Handler = 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message message) {
+            BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
+            Log.i("back", String.valueOf(briefNewsArray.length));
+            for (int i = 0; i < briefNewsArray.length; i++)
+                Log.i("back", briefNewsArray[i].newsTitle);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +40,11 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         query = intent.getStringExtra("query");
-        //Log.i("query", query);
+        Log.i("back", query);
+
+        NewsRunnable runnable = new NewsRunnable(handler, 1, 5);
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     @Override
