@@ -42,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
         query = intent.getStringExtra("query");
         Log.i("back", query);
 
-        NewsRunnable runnable = new NewsRunnable(handler, 1, 5);
+        GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 5);
         Thread thread = new Thread(runnable);
         thread.start();
     }
