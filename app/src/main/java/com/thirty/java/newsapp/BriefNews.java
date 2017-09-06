@@ -17,7 +17,7 @@ public class BriefNews implements Parcelable{
     public String newsClassTag;
     public String newsAuthor;
     public String newsID;
-    public String newsPictures;
+    public String[] newsPictures;
     public String newsSource;
     public String newsTime;
     public String newsTitle;
@@ -33,7 +33,7 @@ public class BriefNews implements Parcelable{
         this.newsClassTag = newsClassTag;
         this.newsAuthor = newsAuthor;
         this.newsID = newsID;
-        this.newsPictures = unsplitNewsPictures;//(String[]) vector.toArray(new String[0]);
+        this.newsPictures = (String[]) vector.toArray(new String[0]);
         this.newsSource = newsSource;
         this.newsTime = newsTime;
         this.newsTitle = newsTitle;
@@ -51,9 +51,7 @@ public class BriefNews implements Parcelable{
         out.writeString(newsClassTag);
         out.writeString(newsAuthor);
         out.writeString(newsID);
-        //out.writeStringArray(newsPictures);
-
-        out.writeString(newsPictures);
+        out.writeStringArray(newsPictures);
         out.writeString(newsSource);
         out.writeString(newsTime);
         out.writeString(newsTitle);
@@ -80,8 +78,7 @@ public class BriefNews implements Parcelable{
         newsClassTag = in.readString();
         newsAuthor = in.readString();
         newsID = in.readString();
-        // in.readStringArray(newsPictures);
-        newsPictures = in.readString();
+        newsPictures = in.createStringArray();
         newsSource = in.readString();
         newsTime = in.readString();
         newsTitle = in.readString();
