@@ -27,11 +27,17 @@ public class SearchActivity extends AppCompatActivity {
         public void handleMessage(Message message) {
             BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
             Log.i("back", String.valueOf(briefNewsArray.length));
-            Log.i("query", briefNewsArray[0].newsTitle);
+            onReceiveNews(briefNewsArray);
             //for (int i = 0; i < briefNewsArray.length; i++)
              //   Log.i("back", briefNewsArray[i].newsTitle);
         }
     };
+
+    public void onReceiveNews(BriefNews[] briefNewsArray){
+        Intent intent = new Intent(this, NewsActivity.class);
+        intent.putExtra("News", briefNewsArray[0]);
+        this.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
