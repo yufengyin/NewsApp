@@ -25,10 +25,19 @@ public class SearchActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message) {
-            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            Log.i("back", "20172027" + detailedNews.newsContent);
+            // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
+            for (int i = 0; i < briefNewsArray.length; i++)
+               Log.i("back", briefNewsArray[i].newsAuthor);
+            onReceiveNews(briefNewsArray);
         }
     };
+
+    public void onReceiveNews(BriefNews[] briefNewsArray){
+        Intent intent = new Intent(this, NewsActivity.class);
+        intent.putExtra("News", briefNewsArray[0]);
+        this.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +62,7 @@ public class SearchActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
-                Log.i("back", "before query:" + query);
-                GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(handler, "20150813091407c0c1de00ce400399286e41661c471c");
+                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 2);
                 Thread thread = new Thread(runnable);
                 thread.start();
                 return false;

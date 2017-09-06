@@ -34,5 +34,10 @@
             android:name=".SearchActivity">
 
         </activity>
+
+        <activity
+            android:name=".NewsActivity">
+
+        </activity>
     </application>
 </manifest>
