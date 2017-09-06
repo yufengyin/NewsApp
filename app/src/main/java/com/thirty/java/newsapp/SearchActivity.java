@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
 
-        NewsRunnable runnable = new NewsRunnable(handler, 1, 5);
+        GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 5);
         Thread thread = new Thread(runnable);
         thread.start();
     }

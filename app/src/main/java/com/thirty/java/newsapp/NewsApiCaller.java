@@ -17,10 +17,9 @@ import org.json.JSONObject;
 
 
 public class NewsApiCaller {
-    public static Bundle getLatestNews(int pageNo, int pageSize) throws Exception
+    private static Bundle getBriefNewsArrayByUrl(String urlString) throws Exception
     {
-        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
-        URL url = new URL("http://166.111.68.66:2042/news/action/query/latest" + param);
+        URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);
         conn.setRequestMethod("GET");
@@ -38,14 +37,14 @@ public class NewsApiCaller {
             {
                 JSONObject jsonObject = newsListInJson.getJSONObject(i);
                 briefNewsArray[i] = new BriefNews(jsonObject.getString("newsClassTag"),
-                                                jsonObject.getString("news_Author"),
-                                                jsonObject.getString("news_ID"),
-                                                jsonObject.getString("news_Source"),
-                                                jsonObject.getString("news_Pictures"),
-                                                jsonObject.getString("news_Time"),
-                                                jsonObject.getString("news_Title"),
-                                                jsonObject.getString("news_URL"),
-                                                jsonObject.getString("news_Intro"));
+                        jsonObject.getString("news_Author"),
+                        jsonObject.getString("news_ID"),
+                        jsonObject.getString("news_Source"),
+                        jsonObject.getString("news_Pictures"),
+                        jsonObject.getString("news_Time"),
+                        jsonObject.getString("news_Title"),
+                        jsonObject.getString("news_URL"),
+                        jsonObject.getString("news_Intro"));
             }
             Bundle bundle = new Bundle();
             bundle.putParcelableArray("briefNewsArray", briefNewsArray);
@@ -54,6 +53,28 @@ public class NewsApiCaller {
         else
         { throw new Exception(); }
     }
+    public static Bundle getLatestNews(int pageNo, int pageSize) throws Exception
+    {
+        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
+    }
+    public static Bundle getLatestNews(int pageNo, int pageSize, int category) throws Exception
+    {
+        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
+    }
+    public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize) throws Exception
+    {
+        String param = "?keyword=" + keyword + "&pageNo=" + pageNo + "&pageSize=" + pageSize;
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
+    }
+    public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize, int category) throws Exception
+    {
+        String param = "?keyword=" + keyword + "&pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
+        return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
+    }
+
+
 }
 
 
