@@ -54,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setIconifiedByDefault(false);
         //设置搜索的事件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
