@@ -23,7 +23,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_collect_view);
+        setContentView(R.layout.my_search_view);
 
         //首页切换
         mIndexButton = (Button) findViewById(R.id.index_button);
@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //使用菜单填充器获取menu下的菜单资源文件
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        getMenuInflater().inflate(R.menu.new_search_menu, menu);
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);

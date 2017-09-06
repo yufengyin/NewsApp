@@ -24,6 +24,18 @@
             android:paddingLeft="8dp"/>
 
         <Button
+            android:id="@+id/my_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="@string/my_filter"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="8dp"
+            android:layout_below="@id/my_interest"/>
+
+        <Button
             android:id="@+id/my_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +45,7 @@
             android:textSize="18sp"
             android:gravity="start|center_vertical"
             android:paddingLeft="8dp"
-            android:layout_below="@id/my_interest"/>
+            android:layout_below="@id/my_filter"/>
 
         <Button
             android:id="@+id/night_mode"

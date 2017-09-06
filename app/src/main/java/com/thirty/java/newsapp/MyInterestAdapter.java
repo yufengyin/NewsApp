@@ -33,7 +33,7 @@ public class MyInterestAdapter extends RecyclerView.Adapter<MyInterestAdapter.Vi
     // Create new views (invoked by the layout manager)
     @Override
     public MyInterestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                           int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_interest_card_view, parent, false);
