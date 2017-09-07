@@ -25,11 +25,12 @@ public class SearchActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message) {
-            // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
-            for (int i = 0; i < briefNewsArray.length; i++)
-               Log.i("back", briefNewsArray[i].newsAuthor);
-            onReceiveNews(briefNewsArray);
+             DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            // BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
+            DatabaseApi.insertDetailedNews(SearchActivity.this, detailedNews);
+            detailedNews = DatabaseApi.queryByID(SearchActivity.this, "201512300712fa26956630b845858ea94d18d73dd9e7");
+            Log.i("back", detailedNews.newsTitle);
+            // onReceiveNews(briefNewsArray);
         }
     };
 
@@ -62,7 +63,8 @@ public class SearchActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
-                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 2);
+                // SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 5);
+                GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(handler, "201512300712fa26956630b845858ea94d18d73dd9e7");
                 Thread thread = new Thread(runnable);
                 thread.start();
                 return false;
@@ -78,10 +80,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.cancel:
+                public boolean onOptionsItemSelected(MenuItem item) {
+                // Handle item selection
+                switch (item.getItemId()) {
+                    case R.id.cancel:
                 Log.i("cancel","cancel");
                 finish();
                 return true;

@@ -1,5 +1,7 @@
 package com.thirty.java.newsapp;
 
+import android.os.Bundle;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
