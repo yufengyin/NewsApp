@@ -25,12 +25,11 @@ public class SearchActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message) {
-             DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            // BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
-            DatabaseApi.insertDetailedNews(SearchActivity.this, detailedNews);
-            detailedNews = DatabaseApi.queryByID(SearchActivity.this, "201512300712fa26956630b845858ea94d18d73dd9e7");
-            Log.i("back", detailedNews.newsTitle);
-            // onReceiveNews(briefNewsArray);
+            // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
+            for (int i = 0; i < briefNewsArray.length; i++)
+                Log.i("back", briefNewsArray[i].newsAuthor);
+            onReceiveNews(briefNewsArray);
         }
     };
 
@@ -53,8 +52,23 @@ public class SearchActivity extends AppCompatActivity {
         //获取搜索的菜单组件
         MenuItem menuItem = menu.findItem(R.id.search);
         menuItem.expandActionView();
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
+        MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Do something when collapsed
+                finish();
+                return true;  // Return true to collapse action view
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+        });
+
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         //设置搜索的事件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -63,8 +77,7 @@ public class SearchActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
-                // SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 5);
-                GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(handler, "201512300712fa26956630b845858ea94d18d73dd9e7");
+                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 2);
                 Thread thread = new Thread(runnable);
                 thread.start();
                 return false;
@@ -75,20 +88,6 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-                public boolean onOptionsItemSelected(MenuItem item) {
-                // Handle item selection
-                switch (item.getItemId()) {
-                    case R.id.cancel:
-                Log.i("cancel","cancel");
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

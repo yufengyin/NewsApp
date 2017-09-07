@@ -32,5 +32,3 @@ class GetDetailedNewsRunnable implements Runnable
     Handler handler;
     String newsID;
 }
-
-
