@@ -36,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
             // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
             BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
             for (int i = 0; i < briefNewsArray.length; i++)
-               Log.i("back", briefNewsArray[i].newsAuthor);
+                Log.i("back", briefNewsArray[i].newsAuthor);
             onReceiveNews(briefNewsArray);
         }
     };
