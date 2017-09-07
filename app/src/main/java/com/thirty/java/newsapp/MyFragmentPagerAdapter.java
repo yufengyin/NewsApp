@@ -14,9 +14,11 @@ import java.util.ArrayList;
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<NewsFragment> fragments;
-    static public int SIZE = 7;
+    static public int SIZE = 13;
     static public String[] myInterestDataset = new String[]{
-            "推荐", "科技", "教育", "军事", "国内", "社会", "文化"
+            "推荐", "科技", "教育", "军事", "国内",
+            "社会", "文化", "汽车", "国际", "体育",
+            "财经", "健康", "娱乐"
     };
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
