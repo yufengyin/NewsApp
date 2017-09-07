@@ -25,11 +25,11 @@ public class SearchActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message) {
+            // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
             BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
-            Log.i("back", String.valueOf(briefNewsArray.length));
+            for (int i = 0; i < briefNewsArray.length; i++)
+               Log.i("back", briefNewsArray[i].newsAuthor);
             onReceiveNews(briefNewsArray);
-            //for (int i = 0; i < briefNewsArray.length; i++)
-             //   Log.i("back", briefNewsArray[i].newsTitle);
         }
     };
 
@@ -77,8 +77,7 @@ public class SearchActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
-                Log.i("back", "before query:" + query);
-                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 30);
+                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 2);
                 Thread thread = new Thread(runnable);
                 thread.start();
                 return false;

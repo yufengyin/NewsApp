@@ -34,6 +34,7 @@ public class NewsActivity extends AppCompatActivity {
         mNewsTitle = (TextView) findViewById(R.id.news_name);
         mNewsTitle.setText(briefNews.newsTitle);
 
+
         mNewsAuthor = (TextView) findViewById(R.id.news_author);
         mNewsAuthor.setText(briefNews.newsAuthor);
 
