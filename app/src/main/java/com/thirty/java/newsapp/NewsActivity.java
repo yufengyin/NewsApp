@@ -29,20 +29,20 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_news_view);
 
-        BriefNews briefNews = (BriefNews) getIntent().getParcelableExtra("News");
+        DetailedNews detailedNews = (DetailedNews) getIntent().getParcelableExtra("News");
 
         mNewsTitle = (TextView) findViewById(R.id.news_name);
-        mNewsTitle.setText(briefNews.newsTitle);
+        mNewsTitle.setText(detailedNews.newsTitle);
 
 
         mNewsAuthor = (TextView) findViewById(R.id.news_author);
-        mNewsAuthor.setText(briefNews.newsAuthor);
+        mNewsAuthor.setText(detailedNews.newsAuthor);
 
         mNewsTime = (TextView) findViewById(R.id.news_time);
-        mNewsTime.setText(briefNews.newsTime);
+        mNewsTime.setText(detailedNews.newsTime);
 
         mNewsContent = (TextView) findViewById(R.id.news_text);
-        mNewsContent.setText(briefNews.newsIntro);
+        mNewsContent.setText(detailedNews.newsContent);
 
         //退出新闻界面
         mBackButton = (Button) findViewById(R.id.back_button);
@@ -52,7 +52,5 @@ public class NewsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Log.i("News", briefNews.newsTitle);
     }
 }
