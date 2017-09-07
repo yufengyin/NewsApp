@@ -14,13 +14,11 @@ import android.view.ViewGroup;
 
 public class NewsFragment extends Fragment {
     private MyAdapter mFragmentAdapter;
-    private BriefNews[] myDataset = new BriefNews[]{
-    };
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
-
-    public static Fragment newInstance(int id) {
-        Fragment f = new NewsFragment();
+    public String mCategory;
+    public static NewsFragment newInstance(int id) {
+        NewsFragment f = new NewsFragment();
         Bundle b = new Bundle();
         b.putInt(ID, id);
         f.setArguments(b);
@@ -31,7 +29,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
-        mFragmentAdapter = new MyAdapter(myDataset);
+        mFragmentAdapter = new MyAdapter(new BriefNews[]{});
         rv.setAdapter(mFragmentAdapter);
         return rv;
     }

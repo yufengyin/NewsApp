@@ -27,11 +27,11 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
             // DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            BriefNews[] briefNewsArray = (BriefNews[])message.getData().getParcelableArray("briefNewsArray");
+            BriefNews[] briefNewsArray = (BriefNews[]) message.getData().getParcelableArray("briefNewsArray");
             for (int i = 0; i < briefNewsArray.length; i++)
                 Log.i("back", briefNewsArray[i].newsAuthor);
             onReceiveNews(briefNewsArray);
@@ -53,9 +53,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onReceiveNews(BriefNews[] briefNewsArray){
-        //Intent intent = new Intent(this, NewsActivity.class);
-        //intent.putExtra("News", briefNewsArray[0]);
-        //this.startActivity(intent);
         mAdapter.mDataset = briefNewsArray;
         mAdapter.notifyDataSetChanged();
     }
@@ -69,7 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(new BriefNews[]{});
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener(){
+        mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view , int position){
                 GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mAdapter.mDataset[position].newsID);
@@ -107,10 +104,6 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Toast t = Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT);
-                //t.setGravity(Gravity.TOP, 0, 0);
-                //t.show();
-
                 SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 10);
                 Thread thread = new Thread(runnable);
                 thread.start();
