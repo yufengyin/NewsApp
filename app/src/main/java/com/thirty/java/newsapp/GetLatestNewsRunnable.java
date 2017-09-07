@@ -23,7 +23,7 @@ class GetLatestNewsRunnable implements Runnable
         this.handler = handler;
         this.pageNo = pageNo;
         this.pageSize = pageSize;
-        this.category = "";
+        this.category = null;
     }
     @Override
     public void run()
@@ -31,7 +31,7 @@ class GetLatestNewsRunnable implements Runnable
         try
         {
             Bundle bundle;
-            if (category != "")
+            if (category != null)
                 bundle = NewsApiCaller.getLatestNews(pageNo, pageSize, category);
             else
                 bundle = NewsApiCaller.getLatestNews(pageNo, pageSize);

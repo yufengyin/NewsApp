@@ -24,7 +24,7 @@ public class SearchNewsByKeywordRunnable implements Runnable{
         this.keyword = keyword;
         this.pageNo = pageNo;
         this.pageSize = pageSize;
-        this.category = "";
+        this.category = null;
     }
     @Override
     public void run()
@@ -32,7 +32,7 @@ public class SearchNewsByKeywordRunnable implements Runnable{
         try
         {
             Bundle bundle;
-            if (category != "")
+            if (category != null)
                 bundle = NewsApiCaller.searchNewsByKeyword(keyword, pageNo, pageSize, category);
             else
                 bundle = NewsApiCaller.searchNewsByKeyword(keyword, pageNo, pageSize);
