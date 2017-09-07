@@ -11,7 +11,7 @@ import android.util.Log;
 
 class GetLatestNewsRunnable implements Runnable
 {
-    GetLatestNewsRunnable(Handler handler, int pageNo, int pageSize, int category)
+    GetLatestNewsRunnable(Handler handler, int pageNo, int pageSize, String category)
     {
         this.handler = handler;
         this.pageNo = pageNo;
@@ -23,7 +23,7 @@ class GetLatestNewsRunnable implements Runnable
         this.handler = handler;
         this.pageNo = pageNo;
         this.pageSize = pageSize;
-        this.category = 0;
+        this.category = null;
     }
     @Override
     public void run()
@@ -31,7 +31,7 @@ class GetLatestNewsRunnable implements Runnable
         try
         {
             Bundle bundle;
-            if (category != 0)
+            if (category != null)
                 bundle = NewsApiCaller.getLatestNews(pageNo, pageSize, category);
             else
                 bundle = NewsApiCaller.getLatestNews(pageNo, pageSize);
@@ -45,7 +45,7 @@ class GetLatestNewsRunnable implements Runnable
     Handler handler;
     int pageNo;
     int pageSize;
-    int category;
+    String category;
 }
 
 
