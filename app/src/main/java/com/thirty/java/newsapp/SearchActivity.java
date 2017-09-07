@@ -26,8 +26,6 @@ public class SearchActivity extends AppCompatActivity {
     private String query;
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private BriefNews[] myDataset = new BriefNews[]{
-    };
 
     private Handler handler = new Handler(){
         @Override
@@ -44,13 +42,8 @@ public class SearchActivity extends AppCompatActivity {
         //Intent intent = new Intent(this, NewsActivity.class);
         //intent.putExtra("News", briefNewsArray[0]);
         //this.startActivity(intent);
-        Log.i("fresh", "before");
-        myDataset = briefNewsArray;
-        Log.i("fresh", "" + myDataset.length);
-        mAdapter = new MyAdapter(myDataset);
-        //mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-        Log.i("fresh", "after");
+        mAdapter.mDataset = briefNewsArray;
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -59,9 +52,15 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.my_search_view);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_search_recycler_view);
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new MyAdapter(new BriefNews[]{});
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view , int position){
+                
+            }
+        });
     }
 
     @Override
