@@ -1,43 +1,24 @@
 package com.thirty.java.newsapp;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
 import android.util.Log;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import com.iflytek.cloud.*;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.View.OnFocusChangeListener;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView, mInterestView;
-    private RecyclerView.Adapter mAdapter, mInterestAdapter;
-    private RecyclerView.LayoutManager mLayoutManager, mInterestLayoutManager;
     private Button mCollectButton, mSetButton;
-    private SearchView searchView;
-    private ViewPager viewPager;
-
-    private News[] myDataset = new News[]{
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la"),
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la"),
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la")
-    };
-    private String[] myInterestDataset = new String[]{
-            "推荐", "科技", "教育", "军事", "国内", "社会", "文化"
-    };
 
     //讯飞语音合成器
     private SynthesizerListener mSynListener = new SynthesizerListener() {
@@ -73,12 +54,67 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_index_view);
+        setContentView(R.layout.index);
 
-            Log.i("xunfei", "start");
+        // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
+        final LinearLayout tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
+
+        final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        for (int i = 0; i < MyFragmentPagerAdapter.SIZE; i++) {
+            View v = LayoutInflater.from(this).inflate(R.layout.view, null);
+            TextView tv = (TextView) v;
+            tv.setText(MyFragmentPagerAdapter.myInterestDataset[i]);
+
+            v.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+
+                    // 当用户选择了tab选项卡上面的子元素时候，相应的把ViewPager显示的页面调整到相应位置。
+
+                    int count = tabs_LinearLayout.getChildCount();
+                    for (int i = 0; i < count; i++) {
+                        View cv = tabs_LinearLayout.getChildAt(i);
+                        if (v == cv) {
+                            if (hasFocus) {
+                                mViewPager.setCurrentItem(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            tabs_LinearLayout.addView(v, i);
+        }
+
+        mViewPager.setAdapter(new MyFragmentPagerAdapter(this
+                .getSupportFragmentManager()));
+
+        mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageSelected(int pos) {
+                // 在这里，当用户翻动ViewPager页面时候，相应的把选项卡显示对应的位置。
+                // 最轻巧的实现就是让tab选项卡栏中的子元素获得焦点即可。
+                View v = tabs_LinearLayout.getChildAt(pos);
+                v.requestFocus();
+            }
+        });
+
+        Log.i("xunfei", "start");
         //讯飞初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59b0ae8e");
 
@@ -90,26 +126,7 @@ public class MainActivity extends AppCompatActivity {
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
 
         mTts.startSpeaking("膜峰膜峰膜峰", mSynListener);
-            Log.i("xunfei", "end");
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        //mInterestView = (RecyclerView) findViewById(R.id.my_interest_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        //mInterestView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        //mInterestLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        //mInterestView.setLayoutManager(mInterestLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
-        //mInterestAdapter = new MyInterestAdapter(myInterestDataset);
-        //mInterestView.setAdapter(mInterestAdapter);
+        Log.i("xunfei", "end");
 
         //我的收藏切换
         mCollectButton = (Button) findViewById(R.id.collect_button);

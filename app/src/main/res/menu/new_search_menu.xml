@@ -8,10 +8,4 @@
         android:orderInCategory="100"
         android:title="@string/search"
         app:showAsAction="always|collapseActionView" />
-    <item
-        android:id="@+id/cancel"
-        android:text="@string/cancel"
-        android:orderInCategory="200"
-        android:title="@string/cancel"
-        app:showAsAction="always|collapseActionView" />
 </menu>
