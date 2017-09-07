@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private News[] mDataset;
+    private BriefNews[] mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -28,7 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(News[] myDataset) {
+    public MyAdapter(BriefNews[] myDataset) {
         mDataset = myDataset;
     }
 
@@ -49,8 +49,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mNewTitle.setText(mDataset[position].title);
-        holder.mNewsText.setText(mDataset[position].text);
+        holder.mNewTitle.setText(mDataset[position].newsTitle);
+        holder.mNewsText.setText(mDataset[position].newsIntro);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

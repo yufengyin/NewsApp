@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,6 +24,12 @@ import android.util.Log;
 public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
     private String query;
+    private RecyclerView mRecyclerView;
+    private MyAdapter mAdapter;
+    private BriefNews[] myDataset = new BriefNews[]{
+
+    };
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message) {
@@ -43,6 +51,11 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_search_recycler_view);
+        mAdapter = new MyAdapter(myDataset);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

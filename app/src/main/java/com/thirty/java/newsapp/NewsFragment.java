@@ -14,10 +14,7 @@ import android.view.ViewGroup;
 
 public class NewsFragment extends Fragment {
     private MyAdapter mFragmentAdapter;
-    private News[] myDataset = new News[]{
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la"),
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la"),
-            new News("fsy", "tai qiang la"), new News("yyf", "tai ruo la")
+    private BriefNews[] myDataset = new BriefNews[]{
     };
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
