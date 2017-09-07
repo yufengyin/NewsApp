@@ -27,7 +27,6 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private BriefNews[] myDataset = new BriefNews[]{
-
     };
 
     private Handler handler = new Handler(){
@@ -42,9 +41,16 @@ public class SearchActivity extends AppCompatActivity {
     };
 
     public void onReceiveNews(BriefNews[] briefNewsArray){
-        Intent intent = new Intent(this, NewsActivity.class);
-        intent.putExtra("News", briefNewsArray[0]);
-        this.startActivity(intent);
+        //Intent intent = new Intent(this, NewsActivity.class);
+        //intent.putExtra("News", briefNewsArray[0]);
+        //this.startActivity(intent);
+        Log.i("fresh", "before");
+        myDataset = briefNewsArray;
+        Log.i("fresh", "" + myDataset.length);
+        mAdapter = new MyAdapter(myDataset);
+        //mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+        Log.i("fresh", "after");
     }
 
     @Override
@@ -90,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
                 //t.setGravity(Gravity.TOP, 0, 0);
                 //t.show();
 
-                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 2);
+                SearchNewsByKeywordRunnable runnable = new SearchNewsByKeywordRunnable(handler, query, 1, 10);
                 Thread thread = new Thread(runnable);
                 thread.start();
                 return false;
