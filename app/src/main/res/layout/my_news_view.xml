@@ -41,15 +41,22 @@
         android:id="@+id/back_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Button"
+        android:text="back"
         android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/read_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="read"
+        android:layout_above="@id/back_button"/>
 
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"
-        android:layout_above="@id/back_button">
+        android:layout_above="@id/read_button">
 
         <TextView
             android:id="@+id/news_text"

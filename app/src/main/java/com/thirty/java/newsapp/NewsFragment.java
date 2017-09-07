@@ -16,9 +16,9 @@ public class NewsFragment extends Fragment {
     private MyAdapter mFragmentAdapter;
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
-
-    public static Fragment newInstance(int id) {
-        Fragment f = new NewsFragment();
+    public String mCategory;
+    public static NewsFragment newInstance(int id) {
+        NewsFragment f = new NewsFragment();
         Bundle b = new Bundle();
         b.putInt(ID, id);
         f.setArguments(b);
