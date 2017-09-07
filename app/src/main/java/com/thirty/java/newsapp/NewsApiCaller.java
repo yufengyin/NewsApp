@@ -16,7 +16,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-public class NewsApiCaller {
+public class NewsApiCaller
+{
+    private static final Map<String, Integer> map = new HashMap<String, Integer>(){{
+        put("科技", 1); put("教育", 2); put("军事", 3);
+        put("国内", 4); put("社会", 5); put("文化", 6);
+        put("汽车", 7); put("国际", 8); put("体育", 9);
+        put("财经", 10); put("健康", 11); put("娱乐", 12);
+    }};
+
     private static Bundle getBriefNewsArrayByUrl(String urlString) throws Exception
     {
         URL url = new URL(urlString);
@@ -91,9 +99,9 @@ public class NewsApiCaller {
         String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
         return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
     }
-    public static Bundle getLatestNews(int pageNo, int pageSize, int category) throws Exception
+    public static Bundle getLatestNews(int pageNo, int pageSize, String category) throws Exception
     {
-        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
+        String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + map.get(category);
         return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/latest" + param);
     }
     public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize) throws Exception
@@ -101,9 +109,9 @@ public class NewsApiCaller {
         String param = "?keyword=" + java.net.URLEncoder.encode(keyword, "utf-8") + "&pageNo=" + pageNo + "&pageSize=" + pageSize;
         return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
     }
-    public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize, int category) throws Exception
+    public static Bundle searchNewsByKeyword(String keyword, int pageNo, int pageSize, String category) throws Exception
     {
-        String param = "?keyword=" + java.net.URLEncoder.encode(keyword, "utf-8") + "&pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + category;
+        String param = "?keyword=" + java.net.URLEncoder.encode(keyword, "utf-8") + "&pageNo=" + pageNo + "&pageSize=" + pageSize + "&category=" + map.get(category);
         return getBriefNewsArrayByUrl("http://166.111.68.66:2042/news/action/query/search" + param);
     }
     public static Bundle getDetailedNews(String newsID) throws Exception

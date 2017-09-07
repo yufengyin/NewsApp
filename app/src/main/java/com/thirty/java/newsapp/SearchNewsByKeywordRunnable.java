@@ -10,7 +10,7 @@ import android.util.Log;
  */
 
 public class SearchNewsByKeywordRunnable implements Runnable{
-    SearchNewsByKeywordRunnable(Handler handler, String keyword, int pageNo, int pageSize, int category)
+    SearchNewsByKeywordRunnable(Handler handler, String keyword, int pageNo, int pageSize, String category)
     {
         this.handler = handler;
         this.keyword = keyword;
@@ -24,7 +24,7 @@ public class SearchNewsByKeywordRunnable implements Runnable{
         this.keyword = keyword;
         this.pageNo = pageNo;
         this.pageSize = pageSize;
-        this.category = 0;
+        this.category = null;
     }
     @Override
     public void run()
@@ -32,7 +32,7 @@ public class SearchNewsByKeywordRunnable implements Runnable{
         try
         {
             Bundle bundle;
-            if (category != 0)
+            if (category != null)
                 bundle = NewsApiCaller.searchNewsByKeyword(keyword, pageNo, pageSize, category);
             else
                 bundle = NewsApiCaller.searchNewsByKeyword(keyword, pageNo, pageSize);
@@ -47,5 +47,5 @@ public class SearchNewsByKeywordRunnable implements Runnable{
     String keyword;
     int pageNo;
     int pageSize;
-    int category;
+    String category;
 }
