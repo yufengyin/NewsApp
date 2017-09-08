@@ -12,5 +12,20 @@
     <string name="clean_cache">清除缓存</string>
     <string name="search">搜索</string>
     <string name="share">分享</string>
+    <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+
+    <string name="cate1">科技</string>
+    <string name="cate2">教育</string>
+    <string name="cate3">军事</string>
+    <string name="cate4">国内</string>
+    <string name="cate5">社会</string>
+    <string name="cate6">文化</string>
+    <string name="cate7">汽车</string>
+    <string name="cate8">国际</string>
+    <string name="cate9">体育</string>
+    <string name="cate10">财经</string>
+    <string name="cate11">健康</string>
+    <string name="cate12">娱乐</string>
+
 </resources>
