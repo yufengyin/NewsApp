@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
         ArrayList<String> tempList = new ArrayList<String>();
         ArrayList<NewsFragment> fragmentTempList = new ArrayList<NewsFragment>();
         for(int i = 0; i < MyApplication.selected.length; i++){
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 tempList.add(MyApplication.interestDateSet[i]);
             }
         }
+        //查看标签是否改变
         int flag = 1;
         if(myFragmentPagerAdapter.myInterestDataset.length != tempList.size()){
             flag = 0;
@@ -78,20 +78,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(flag == 1 && initial) {
+            //没有改变而且已经初始化则不刷新
             return;
         }
-
+        //初始化新闻数据
         myFragmentPagerAdapter.myInterestDataset = tempList.toArray(new String[0]);
-
-        for (int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++) {
-            myFragmentPagerAdapter.fragments.get(i).mCategory = myFragmentPagerAdapter.myInterestDataset[i];
-        }
-
-        for(int i = 0; i < myFragmentPagerAdapter.fragments.size(); i++){
-            myFragmentPagerAdapter.fragments.get(i).refresh();
-        }
-
-        myFragmentPagerAdapter.notifyDataSetChanged();
+        myFragmentPagerAdapter.initiateNewsData();
+        //更新View标签
         tabs_LinearLayout.removeAllViews();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
             View v = LayoutInflater.from(this).inflate(R.layout.view, null);
@@ -119,11 +112,25 @@ public class MainActivity extends AppCompatActivity {
             });
             tabs_LinearLayout.addView(v, i);
         }
+        myFragmentPagerAdapter.fragments.clear();
+        for (int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++) {
+            NewsFragment f = NewsFragment.newInstance(i);
+            f.mCategory = myFragmentPagerAdapter.myInterestDataset[i];
+            f.mFragmentAdapter.mDataset = myFragmentPagerAdapter.myNewsdataset[MyApplication.map.get(f.mCategory)].toArray(new BriefNews[0]);
+            f.mFragmentAdapter.notifyDataSetChanged();
+            myFragmentPagerAdapter.fragments.add(f);
+        }
+
+        //for(int i = 0; i < myFragmentPagerAdapter.fragments.size(); i++){
+        //    myFragmentPagerAdapter.fragments.get(i).refresh();
+        //}
+        myFragmentPagerAdapter.notifyDataSetChanged();
+
+        //转移到首页
         mViewPager.setCurrentItem(MyApplication.focusPage);
         View v = tabs_LinearLayout.getChildAt(MyApplication.focusPage);
         if(v != null)
             v.requestFocus();
-
     }
 
     @Override
@@ -146,9 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-
                     // 当用户选择了tab选项卡上面的子元素时候，相应的把ViewPager显示的页面调整到相应位置。
-
                     int count = tabs_LinearLayout.getChildCount();
                     for (int i = 0; i < count; i++) {
                         View cv = tabs_LinearLayout.getChildAt(i);

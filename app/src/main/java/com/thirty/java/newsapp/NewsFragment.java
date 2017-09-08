@@ -33,7 +33,7 @@ public class NewsFragment extends Fragment {
     static public GetLatestNewsStream mNewsStream[];
 
     private LatestNewsDataDistributor mNewsDataDistributor = new LatestNewsDataDistributor();
-    private MyAdapter mFragmentAdapter;
+    public MyAdapter mFragmentAdapter;
 
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
