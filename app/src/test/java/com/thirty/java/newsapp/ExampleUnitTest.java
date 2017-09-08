@@ -1,8 +1,12 @@
 package com.thirty.java.newsapp;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -15,5 +19,10 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+        List<String> list = new ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        list = list.subList(2, 2);
+        System.out.println(list);
     }
 }

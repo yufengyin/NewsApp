@@ -26,6 +26,44 @@ public class InterestSetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_interest_set_view);
+        CheckBox tempCheckBox;
+
+        //给CheckBox赋初值
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox1);
+        tempCheckBox.setChecked(MyApplication.selected[1]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox2);
+        tempCheckBox.setChecked(MyApplication.selected[2]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox3);
+        tempCheckBox.setChecked(MyApplication.selected[3]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox4);
+        tempCheckBox.setChecked(MyApplication.selected[4]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox5);
+        tempCheckBox.setChecked(MyApplication.selected[5]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox6);
+        tempCheckBox.setChecked(MyApplication.selected[6]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox7);
+        tempCheckBox.setChecked(MyApplication.selected[7]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox8);
+        tempCheckBox.setChecked(MyApplication.selected[8]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox9);
+        tempCheckBox.setChecked(MyApplication.selected[9]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox10);
+        tempCheckBox.setChecked(MyApplication.selected[10]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox11);
+        tempCheckBox.setChecked(MyApplication.selected[11]);
+
+        tempCheckBox = (CheckBox)findViewById(R.id.checkBox12);
+        tempCheckBox.setChecked(MyApplication.selected[12]);
 
         //取消设置
         mCancelButton = (Button) findViewById(R.id.cancel_button);
@@ -41,6 +79,7 @@ public class InterestSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean selected[] = new boolean[13];
+                selected[0] = true;
 
                 CheckBox mCheckBox;
 
@@ -80,8 +119,8 @@ public class InterestSetActivity extends AppCompatActivity {
                 mCheckBox = (CheckBox)findViewById(R.id.checkBox12);
                 selected[12] = mCheckBox.isChecked();
 
-                for (int i = 1; i <= 12; ++i)
-                    Log.i("fsy", "" + selected[i]);
+                MyApplication.selected = selected;
+                finish();
             }
         });
     }

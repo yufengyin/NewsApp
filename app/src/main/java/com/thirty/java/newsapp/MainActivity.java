@@ -48,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    @Override
+
+    public void onResume(){
+        super.onResume();
+
+        for (int i = 0; i < 13; ++i)
+            Log.i("fsy", MyApplication.selected[i] + "");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

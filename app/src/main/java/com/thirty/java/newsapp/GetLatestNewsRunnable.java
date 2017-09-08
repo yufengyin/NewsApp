@@ -19,12 +19,7 @@ class GetLatestNewsRunnable implements Runnable
         this.category = category;
     }
     GetLatestNewsRunnable(Handler handler, int pageNo, int pageSize)
-    {
-        this.handler = handler;
-        this.pageNo = pageNo;
-        this.pageSize = pageSize;
-        this.category = null;
-    }
+    { this(handler, pageNo, pageSize, null); }
     @Override
     public void run()
     {
