@@ -1,9 +1,12 @@
 package com.thirty.java.newsapp;
 
+import android.app.Application;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
@@ -16,10 +19,14 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private Button mCollectButton, mSetButton;
     private LinearLayout tabs_LinearLayout;
     private ViewPager mViewPager;
+    private MyFragmentPagerAdapter myFragmentPagerAdapter;
+    private boolean initial = false;
 
     //讯飞语音合成器
     private SynthesizerListener mSynListener = new SynthesizerListener() {
@@ -48,26 +55,89 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
+    public void onStart(){
+        super.onStart();
+        ArrayList<String> tempList = new ArrayList<String>();
+        ArrayList<NewsFragment> fragmentTempList = new ArrayList<NewsFragment>();
+        for(int i = 0; i < MyApplication.selected.length; i++){
+            if(MyApplication.selected[i]){
+                tempList.add(MyApplication.interestDateSet[i]);
+            }
+        }
+        int flag = 1;
+        if(myFragmentPagerAdapter.myInterestDataset.length != tempList.size()){
+            flag = 0;
+        }
+        else {
+            for(int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++){
+                if(myFragmentPagerAdapter.myInterestDataset[i] != tempList.get(i)){
+                    flag = 0;
+                }
+            }
+        }
+        if(flag == 1 && initial) {
+            Log.i("yyf", "MainActivity onstart return");
+            return;
+        }
+        Log.i("yyf", "MainActivity onstart start");
 
-    public void onResume(){
-        super.onResume();
+        myFragmentPagerAdapter.myInterestDataset = tempList.toArray(new String[0]);
 
-        for (int i = 0; i < 13; ++i)
-            Log.i("fsy", MyApplication.selected[i] + "");
+        for (int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++) {
+            myFragmentPagerAdapter.fragments.get(i).mCategory = myFragmentPagerAdapter.myInterestDataset[i];
+        }
+
+        for(int i = 0; i < myFragmentPagerAdapter.fragments.size(); i++){
+            myFragmentPagerAdapter.fragments.get(i).refresh();
+        }
+
+        myFragmentPagerAdapter.notifyDataSetChanged();
+        tabs_LinearLayout.removeAllViews();
+        for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
+            View v = LayoutInflater.from(this).inflate(R.layout.view, null);
+            TextView tv = (TextView) v;
+            tv.setText(MyFragmentPagerAdapter.myInterestDataset[i]);
+
+            v.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+
+                    // 当用户选择了tab选项卡上面的子元素时候，相应的把ViewPager显示的页面调整到相应位置。
+
+                    int count = tabs_LinearLayout.getChildCount();
+                    for (int i = 0; i < count; i++) {
+                        View cv = tabs_LinearLayout.getChildAt(i);
+                        if (v == cv) {
+                            if (hasFocus) {
+                                mViewPager.setCurrentItem(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            tabs_LinearLayout.addView(v, i);
+        }
+        mViewPager.setCurrentItem(MyApplication.focusPage);
+        View v = tabs_LinearLayout.getChildAt(MyApplication.focusPage);
+        if(v != null)
+            v.requestFocus();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
-
+        initial = true;
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
+        myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        for (int i = 0; i < MyFragmentPagerAdapter.SIZE; i++) {
+        for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
             View v = LayoutInflater.from(this).inflate(R.layout.view, null);
             TextView tv = (TextView) v;
             tv.setText(MyFragmentPagerAdapter.myInterestDataset[i]);
@@ -94,13 +164,11 @@ public class MainActivity extends AppCompatActivity {
             tabs_LinearLayout.addView(v, i);
         }
 
-        mViewPager.setAdapter(new MyFragmentPagerAdapter(this
-                .getSupportFragmentManager()));
+        mViewPager.setAdapter(myFragmentPagerAdapter);
 
         mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int arg0) {
-
             }
 
             @Override
@@ -113,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 // 在这里，当用户翻动ViewPager页面时候，相应的把选项卡显示对应的位置。
                 // 最轻巧的实现就是让tab选项卡栏中的子元素获得焦点即可。
                 View v = tabs_LinearLayout.getChildAt(pos);
-                v.requestFocus();
+                if(v != null)
+                    v.requestFocus();
             }
         });
 

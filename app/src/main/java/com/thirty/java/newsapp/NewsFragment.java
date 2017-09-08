@@ -17,7 +17,8 @@ import android.view.ViewGroup;
 
 public class NewsFragment extends Fragment {
     final String TYPE_RECOMMEND = "推荐";
-    private MyAdapter mFragmentAdapter;
+    public MyAdapter mFragmentAdapter;
+    private RecyclerView rv;
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
     public String mCategory;
@@ -56,10 +57,37 @@ public class NewsFragment extends Fragment {
         return f;
     }
 
+    public void refresh(){
+        Log.i("yyf", "NewsFragment refresh");
+
+        if (mFragmentAdapter != null) {
+            if(rv != null){
+                rv.setAdapter(mFragmentAdapter);
+            }
+            mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view , int position){
+                    GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mFragmentAdapter.mDataset[position].newsID);
+                    Thread thread = new Thread(runnable);
+                    thread.start();
+                }
+            });
+            if (mCategory != TYPE_RECOMMEND) {
+                GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
+                Thread thread = new Thread(runnable);
+                thread.start();
+            } else {
+                //获取推荐
+
+            }
+            mFragmentAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
+        rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
 
         //加载新闻
         if (mFragmentAdapter == null) {

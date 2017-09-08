@@ -12,10 +12,9 @@ import java.util.ArrayList;
  */
 
 // ViewPager的适配器。
-public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
+public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<NewsFragment> fragments;
-    static public int SIZE = 13;
+    public ArrayList<NewsFragment> fragments;
     static public String[] myInterestDataset = new String[]{
             "推荐", "科技", "教育", "军事", "国内",
             "社会", "文化", "汽车", "国际", "体育",
@@ -25,7 +24,7 @@ public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         fragments = new ArrayList<NewsFragment>();
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < myInterestDataset.length; i++) {
             NewsFragment f = NewsFragment.newInstance(i);
             f.mCategory = myInterestDataset[i];
             fragments.add(f);
