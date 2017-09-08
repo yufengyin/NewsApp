@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         for(int i = 0; i < myFragmentPagerAdapter.fragments.size(); i++){
-            myFragmentPagerAdapter.fragments.get(i).refresh();
+            //myFragmentPagerAdapter.fragments.get(i).refresh();
         }
 
         myFragmentPagerAdapter.notifyDataSetChanged();

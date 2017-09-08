@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 public class NewsFragment extends Fragment {
-    final String TYPE_RECOMMEND = "推荐";
     private RecyclerView rv;
 
     static public String[] categories = new String[]{
@@ -30,7 +29,6 @@ public class NewsFragment extends Fragment {
             "社会", "文化", "汽车", "国际", "体育",
             "财经", "健康", "娱乐"
     };
-    static public GetLatestNewsStream mNewsStream[];
 
     private LatestNewsDataDistributor mNewsDataDistributor = new LatestNewsDataDistributor();
     private MyAdapter mFragmentAdapter;
@@ -83,99 +81,12 @@ public class NewsFragment extends Fragment {
         return f;
     }
 
-    public void refresh(){
-        Log.i("yyf", "NewsFragment refresh " + mCategory);
-
-        if (mFragmentAdapter != null) {
-            if(rv != null){
-                rv.setAdapter(mFragmentAdapter);
-                Log.i("yyf", "NewsFragment refresh " + mCategory + "setAdapter");
-            }
-
-            mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view , int position){
-                    GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mFragmentAdapter.mDataset[position].newsID);
-                    Thread thread = new Thread(runnable);
-                    thread.start();
-                }
-            });
-
-            if (mCategory != TYPE_RECOMMEND) {
-                GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
-                Thread thread = new Thread(runnable);
-                thread.start();
-            } else {
-                //获取推荐
-
-            }
-            mFragmentAdapter.notifyDataSetChanged();
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
-
-        if (mNewsStream == null){
-            mNewsStream = new GetLatestNewsStream[13];
-            for (int i = 1; i <= 12; ++i)
-                mNewsStream[i] = new GetLatestNewsStream(categories[i]);
-        }
-
-        //加载新闻
-        if (mFragmentAdapter == null) {
-            mFragmentAdapter = new MyAdapter(new BriefNews[]{});
-            rv.setAdapter(mFragmentAdapter);
-
-            mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view , int position){
-                    GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mFragmentAdapter.mDataset[position].newsID);
-                    Thread thread = new Thread(runnable);
-                    thread.start();
-                }
-            });
-            if (mCategory != TYPE_RECOMMEND) {
-                //GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
-                //Thread thread = new Thread(runnable);
-                //thread.start();
-                mNewsStream[NewsApiCaller.map.get(mCategory)].getNext(handler, 10);
-            } else {
-                //获取推荐
-                double total_volume = 0;
-                for (int i = 1; i <= 12; ++i)
-                    total_volume += MyApplication.volumnOfCategory[i];
-
-                double possibility[] = new double[13];
-                for (int i = 1; i <= 12; ++i)
-                    possibility[i] = MyApplication.volumnOfCategory[i] / total_volume;
-
-                int count[] = new int[13];
-                Arrays.fill(count, 0);
-                for (int i = 1; i <= 10; ++i){
-                    double corona  = Math.random();
-                    for (int j = 1; j <= 12; ++j){
-                        if (corona <= possibility[j] || j == 12){
-                            ++count[j];
-                            break;
-                        }
-                        corona -= possibility[j];
-                    }
-                }
-
-                List<Pair<String, Integer>> mList = new ArrayList<Pair<String, Integer>>();
-
-                for (int i = 1; i <= 12; ++i)
-                    if (count[i] > 0) {
-                        mList.add(new Pair<String, Integer>(categories[i], count[i]));
-                    }
-                mNewsDataDistributor.getNext(handler, mList);
-            }
-        }
-        else
-            rv.setAdapter(mFragmentAdapter);
+        mFragmentAdapter = new MyAdapter(MyFragmentPagerAdapter.myNewsdataset[MyApplication.map.get(mCategory)].toArray(new BriefNews[0]));
+        rv.setAdapter(mFragmentAdapter);
         return rv;
     }
 }
