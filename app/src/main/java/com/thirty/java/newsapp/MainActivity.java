@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         ArrayList<String> tempList = new ArrayList<String>();
-        ArrayList<NewsFragment> fragmentTempList = new ArrayList<NewsFragment>();
         for(int i = 0; i < MyApplication.selected.length; i++){
             if(MyApplication.selected[i]){
                 tempList.add(MyApplication.interestDateSet[i]);
@@ -112,18 +111,15 @@ public class MainActivity extends AppCompatActivity {
             });
             tabs_LinearLayout.addView(v, i);
         }
-        myFragmentPagerAdapter.fragments.clear();
-        for (int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++) {
-            NewsFragment f = NewsFragment.newInstance(i);
-            f.mCategory = myFragmentPagerAdapter.myInterestDataset[i];
-            f.mFragmentAdapter.mDataset = myFragmentPagerAdapter.myNewsdataset[MyApplication.map.get(f.mCategory)].toArray(new BriefNews[0]);
-            f.mFragmentAdapter.notifyDataSetChanged();
-            myFragmentPagerAdapter.fragments.add(f);
-        }
 
-        //for(int i = 0; i < myFragmentPagerAdapter.fragments.size(); i++){
-        //    myFragmentPagerAdapter.fragments.get(i).refresh();
-        //}
+        //重建Fragments
+        for (int i = 0; i < myFragmentPagerAdapter.myInterestDataset.length; i++) {
+            NewsFragment f = myFragmentPagerAdapter.fragments.get(i);
+            f.mCategory = myFragmentPagerAdapter.myInterestDataset[i];
+            BriefNews[] tempNewsList = myFragmentPagerAdapter.myNewsdataset[MyApplication.map.get(f.mCategory)].toArray(new BriefNews[0]);
+            f.mFragmentAdapter.mDataset = tempNewsList;
+            f.mFragmentAdapter.notifyDataSetChanged();
+        }
         myFragmentPagerAdapter.notifyDataSetChanged();
 
         //转移到首页
@@ -141,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
-
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {

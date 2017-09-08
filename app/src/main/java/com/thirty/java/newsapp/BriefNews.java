@@ -23,6 +23,14 @@ public class BriefNews implements Parcelable{
     public String newsTitle;
     public String newsURL;
     public String newsIntro;
+
+    public BriefNews(){
+        newsAuthor = "1";
+        newsIntro = "2";
+        newsTitle = "3";
+        newsTime = "4";
+    }
+
     public BriefNews(String newsClassTag, String newsAuthor, String newsID, String unsplitNewsPictures, String newsSource,
                      String newsTime, String newsTitle, String newsURL, String newsIntro)
     {
