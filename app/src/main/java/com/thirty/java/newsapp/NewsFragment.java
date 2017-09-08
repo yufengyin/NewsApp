@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,20 @@ public class NewsFragment extends Fragment {
         mFragmentAdapter.notifyDataSetChanged();
     }
 
+    private Handler newsHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            onReceiveDetailedNews(detailedNews);
+        }
+    };
+
+    public void onReceiveDetailedNews(DetailedNews detailedNews){
+        Intent intent = new Intent(getContext(), NewsActivity.class);
+        intent.putExtra("News", detailedNews);
+        this.startActivity(intent);
+    }
+
     public static NewsFragment newInstance(int id) {
         NewsFragment f = new NewsFragment();
         Bundle b = new Bundle();
@@ -50,6 +65,15 @@ public class NewsFragment extends Fragment {
         if (mFragmentAdapter == null) {
             mFragmentAdapter = new MyAdapter(new BriefNews[]{});
             rv.setAdapter(mFragmentAdapter);
+
+            mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view , int position){
+                    GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mFragmentAdapter.mDataset[position].newsID);
+                    Thread thread = new Thread(runnable);
+                    thread.start();
+                }
+            });
             if (mCategory != TYPE_RECOMMEND) {
                 GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
                 Thread thread = new Thread(runnable);
