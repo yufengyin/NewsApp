@@ -325,11 +325,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/confirm"/>
+            android:text="@string/confirm"
+            android:background="@color/white"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel"
+            android:background="@color/white"/>
     </LinearLayout>
 </RelativeLayout>

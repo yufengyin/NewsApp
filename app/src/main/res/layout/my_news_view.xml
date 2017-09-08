@@ -37,26 +37,52 @@
             android:layout_margin="4dp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/back_button"
+    <LinearLayout
+        android:id="@+id/news_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="back"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/read_button"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="read"
-        android:layout_above="@id/back_button"/>
+        <Button
+            android:id="@+id/read_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/read"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@+id/collect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/collect_name"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/share"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/back"
+            android:background="@color/white"/>
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"
-        android:layout_above="@id/read_button">
+        android:layout_above="@id/news_layout">
 
         <TextView
             android:id="@+id/news_text"
