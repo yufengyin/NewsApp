@@ -55,7 +55,7 @@ public class GetLatestNewsStream implements NewsStream
         this(null);
     }
     @Override
-    public void getNext(Handler handler, int n)
+    synchronized public void getNext(Handler handler, int n)
     {
         paramHandler = handler;
         REQUESTING = true; // start

@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onResume(){
         super.onResume();
-
-        for (int i = 0; i < 13; ++i)
-            Log.i("fsy", MyApplication.selected[i] + "");
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

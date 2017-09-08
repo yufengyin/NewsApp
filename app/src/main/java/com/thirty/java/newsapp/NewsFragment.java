@@ -37,6 +37,7 @@ public class NewsFragment extends Fragment {
         @Override
         public void handleMessage(Message message) {
             BriefNews[] briefNewsArray = (BriefNews[]) message.getData().getParcelableArray("briefNewsArray");
+            Log.i("zyj", "length in handler: " + briefNewsArray.length);
             onReceiveNews(briefNewsArray);
         }
     };
@@ -104,6 +105,30 @@ public class NewsFragment extends Fragment {
                 mNewsStream[NewsApiCaller.map.get(mCategory)].getNext(handler, 10);
             } else {
                 //获取推荐
+                double total_volume = 0;
+                for (int i = 1; i <= 12; ++i)
+                    total_volume += MyApplication.volumnOfCategory[i];
+
+                double possibility[] = new double[13];
+                for (int i = 1; i <= 12; ++i)
+                    possibility[i] = MyApplication.volumnOfCategory[i] / total_volume;
+
+                int count[] = new int[13];
+                Arrays.fill(count, 0);
+                for (int i = 1; i <= 10; ++i){
+                    double corona  = Math.random();
+                    for (int j = 1; j <= 12; ++j){
+                        if (corona <= possibility[j] || j == 12){
+                            ++count[j];
+                            break;
+                        }
+                        corona -= possibility[j];
+                    }
+                }
+
+                for (int i = 1; i <= 12; ++i)
+                    if (count[i] > 0)
+                        mNewsStream[i].getNext(handler, count[i]);
             }
         }
         else
