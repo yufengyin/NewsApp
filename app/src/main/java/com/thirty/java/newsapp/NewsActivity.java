@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 public class NewsActivity extends AppCompatActivity {
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
     private Button mBackButton, mReadButton;
+    private SpeechSynthesizer mTts = null;
 
     private SynthesizerListener mSynListener = new SynthesizerListener() {
         //会话结束回调接口，没有错误时，error为null
@@ -85,6 +86,8 @@ public class NewsActivity extends AppCompatActivity {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mTts != null)
+                    mTts.stopSpeaking();
                 finish();
             }
         });
@@ -99,7 +102,7 @@ public class NewsActivity extends AppCompatActivity {
                 SpeechUtility.createUtility(NewsActivity.this, SpeechConstant.APPID + "=59b0ae8e");
 
                 //语音合成
-                SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer(NewsActivity.this, null);
+                mTts = SpeechSynthesizer.createSynthesizer(NewsActivity.this, null);
                 mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");//设置发音人
                 mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
                 mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
