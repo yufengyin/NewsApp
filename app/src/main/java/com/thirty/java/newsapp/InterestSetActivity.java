@@ -79,6 +79,7 @@ public class InterestSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean selected[] = new boolean[13];
+                selected[0] = true;
 
                 CheckBox mCheckBox;
 
@@ -117,6 +118,9 @@ public class InterestSetActivity extends AppCompatActivity {
 
                 mCheckBox = (CheckBox)findViewById(R.id.checkBox12);
                 selected[12] = mCheckBox.isChecked();
+
+                MyApplication.selected = selected;
+                finish();
             }
         });
     }
