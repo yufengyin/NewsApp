@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,7 @@ public class GetLatestNewsStream implements NewsStream
         BriefNews[] briefNewsArray = (BriefNews[]) message.getData().getParcelableArray("briefNewsArray");
         if (briefNewsArray.length == 0)
             END_OF_STREAM = true;
+        briefNewsList.addAll(Arrays.asList(briefNewsArray));
         if (REQUESTING)
             getNext(tempN); // only when requesting
 
@@ -66,7 +68,7 @@ public class GetLatestNewsStream implements NewsStream
             Runnable runnable = new GetLatestNewsRunnable(tranferHandler, currentPage, pageSize, category);
             new Thread(runnable).start();
         }
-        if (briefNewsList.size() == 0 && END_OF_STREAM)
+        else if (briefNewsList.size() == 0 && END_OF_STREAM)
         {
             Bundle bundle = new Bundle();
             bundle.putParcelableArray("briefNewsArray", new BriefNews[0]);

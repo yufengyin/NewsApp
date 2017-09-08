@@ -59,7 +59,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_search_view);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.my_search_recycler_view);
         mAdapter = new MyAdapter(new BriefNews[]{});
         mRecyclerView.setHasFixedSize(true);
