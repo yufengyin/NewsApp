@@ -12,76 +12,78 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp">
 
-        <Button
-            android:id="@+id/my_interest"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/my_interest"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"/>
+            android:orientation="vertical"
+            android:divider="@drawable/my_divider"
+            android:showDividers="middle|end">
 
-        <Button
-            android:id="@+id/my_filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/my_filter"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/my_interest"/>
+            <Button
+                android:id="@+id/my_interest"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/my_interest"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp"/>
 
-        <Button
-            android:id="@+id/my_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/my_history"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/my_filter"/>
+            <Button
+                android:id="@+id/my_filter"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/my_filter"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp" />
 
-        <Button
-            android:id="@+id/night_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/night_mode"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/my_history"/>
+            <Button
+                android:id="@+id/my_history"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/my_history"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp" />
 
-        <Button
-            android:id="@+id/no_image_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/no_image_mode"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/night_mode"/>
+            <Button
+                android:id="@+id/clean_cache"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/clean_cache"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp" />
 
-        <Button
-            android:id="@+id/clean_cache"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/clean_cache"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="8dp"
-            android:layout_below="@id/no_image_mode"/>
+            <Switch
+                android:id="@+id/night_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/night_mode"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp"/>
+
+            <Switch
+                android:id="@+id/no_image_mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:text="@string/no_image_mode"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="8dp"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
