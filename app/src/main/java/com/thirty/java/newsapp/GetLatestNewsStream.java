@@ -55,7 +55,7 @@ public class GetLatestNewsStream implements NewsStream
         this(null);
     }
     @Override
-    synchronized public void getNext(Handler handler, int n)
+    synchronized public void getNext(Handler handler, int n) // n cannot be zero
     {
         paramHandler = handler;
         REQUESTING = true; // start
@@ -89,5 +89,4 @@ public class GetLatestNewsStream implements NewsStream
             REQUESTING = false; // end
         }
     }
-
 }

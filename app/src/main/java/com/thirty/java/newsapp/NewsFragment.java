@@ -43,11 +43,15 @@ public class NewsFragment extends Fragment {
     };
 
     public void onReceiveNews(BriefNews[] briefNewsArray){
-        ArrayList<BriefNews> tempList = new ArrayList<BriefNews>();
-        tempList.addAll(Arrays.asList(mFragmentAdapter.mDataset));
-        tempList.addAll(Arrays.asList(briefNewsArray));
-        mFragmentAdapter.mDataset = tempList.toArray(new BriefNews[0]);
-
+        Log.i("zyj", "mFragmentAdapter.mDataset before: " + mFragmentAdapter.mDataset.length);
+        Log.i("zyj", "onReceiveNews: " + briefNewsArray.length);
+        BriefNews[] tempArray = new BriefNews[mFragmentAdapter.mDataset.length + briefNewsArray.length];
+        for (int i = 0; i < mFragmentAdapter.mDataset.length; i++)
+            tempArray[i] = mFragmentAdapter.mDataset[i];
+        for (int i = 0; i < briefNewsArray.length; i++)
+            tempArray[mFragmentAdapter.mDataset.length + i] = briefNewsArray[i];
+        mFragmentAdapter.mDataset = tempArray;
+        Log.i("zyj", "mFragmentAdapter.mDataset after: " + mFragmentAdapter.mDataset.length);
         //mFragmentAdapter.mDataset = briefNewsArray;
         mFragmentAdapter.notifyDataSetChanged();
     }
@@ -127,8 +131,10 @@ public class NewsFragment extends Fragment {
                 }
 
                 for (int i = 1; i <= 12; ++i)
-                    if (count[i] > 0)
+                    if (count[i] > 0) {
                         mNewsStream[i].getNext(handler, count[i]);
+                        Log.i("zyj", "param: " + count[i]);
+                    }
             }
         }
         else
