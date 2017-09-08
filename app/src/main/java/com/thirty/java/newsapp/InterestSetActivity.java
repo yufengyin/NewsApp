@@ -18,9 +18,20 @@ import android.widget.Toast;
  */
 
 public class InterestSetActivity extends AppCompatActivity {
+
+    private Button mCancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_interest_set_view);
+
+        //取消设置
+        mCancelButton = (Button) findViewById(R.id.cancel_button);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
