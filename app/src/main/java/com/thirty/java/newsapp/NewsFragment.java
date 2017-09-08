@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class NewsFragment extends Fragment {
     };
     static public GetLatestNewsStream mNewsStream[];
 
+    private LatestNewsDataDistributor mNewsDataDistributor = new LatestNewsDataDistributor();
     private MyAdapter mFragmentAdapter;
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
@@ -130,11 +132,13 @@ public class NewsFragment extends Fragment {
                     }
                 }
 
+                List<Pair<String, Integer>> mList = new ArrayList<Pair<String, Integer>>();
+
                 for (int i = 1; i <= 12; ++i)
                     if (count[i] > 0) {
-                        mNewsStream[i].getNext(handler, count[i]);
-                        Log.i("zyj", "param: " + count[i]);
+                        mList.add(new Pair<String, Integer>(categories[i], count[i]));
                     }
+                mNewsDataDistributor.getNext(handler, mList);
             }
         }
         else

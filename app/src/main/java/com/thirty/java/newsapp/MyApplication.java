@@ -16,7 +16,7 @@ public class MyApplication extends Application {
     public MyApplication(){
         super();
 
-        for (int i = 1; i <= 2; ++i)
+        for (int i = 1; i <= 12; ++i)
             volumnOfCategory[i] = 1.0;
     }
 

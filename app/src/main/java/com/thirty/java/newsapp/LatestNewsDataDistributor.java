@@ -7,10 +7,12 @@ package com.thirty.java.newsapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public class LatestNewsDataDistributor
     };
     public LatestNewsDataDistributor()
     {
+        categoryStreamMap = new HashMap<String, GetLatestNewsStream>();
         for (String key : NewsApiCaller.map.keySet())
         {
             categoryStreamMap.put(key, new GetLatestNewsStream(key));
