@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private Button mCollectButton, mSetButton;
+    private LinearLayout tabs_LinearLayout;
+    private ViewPager mViewPager;
 
     //讯飞语音合成器
     private SynthesizerListener mSynListener = new SynthesizerListener() {
@@ -52,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.index);
 
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
-        final LinearLayout tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
+        tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
 
-        final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         for (int i = 0; i < MyFragmentPagerAdapter.SIZE; i++) {
             View v = LayoutInflater.from(this).inflate(R.layout.view, null);
