@@ -55,5 +55,10 @@
             android:name=".NewsActivity">
 
         </activity>
+
+        <activity
+            android:name=".InterestSetActivity">
+
+        </activity>
     </application>
 </manifest>

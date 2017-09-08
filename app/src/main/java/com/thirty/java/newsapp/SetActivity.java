@@ -18,7 +18,7 @@ import android.widget.Toast;
  */
 
 public class SetActivity extends AppCompatActivity {
-    private Button mIndexButton, mCollectButton;
+    private Button mIndexButton, mCollectButton, mInterestButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,17 @@ public class SetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SetActivity.this, CollectActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //我的关注
+        mInterestButton = (Button) findViewById(R.id.my_interest);
+        mInterestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SetActivity.this, InterestSetActivity.class);
                 startActivity(intent);
                 finish();
             }
