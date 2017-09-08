@@ -11,12 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by 321yy on 2017/9/7.
  */
 
 public class NewsFragment extends Fragment {
     final String TYPE_RECOMMEND = "推荐";
+    static public String[] categories = new String[]{
+            "推荐", "科技", "教育", "军事", "国内",
+            "社会", "文化", "汽车", "国际", "体育",
+            "财经", "健康", "娱乐"
+    };
+    static public GetLatestNewsStream mNewsStream[];
+
     private MyAdapter mFragmentAdapter;
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
@@ -30,7 +42,12 @@ public class NewsFragment extends Fragment {
     };
 
     public void onReceiveNews(BriefNews[] briefNewsArray){
-        mFragmentAdapter.mDataset = briefNewsArray;
+        ArrayList<BriefNews> tempList = new ArrayList<BriefNews>();
+        tempList.addAll(Arrays.asList(mFragmentAdapter.mDataset));
+        tempList.addAll(Arrays.asList(briefNewsArray));
+        mFragmentAdapter.mDataset = tempList.toArray(new BriefNews[0]);
+
+        //mFragmentAdapter.mDataset = briefNewsArray;
         mFragmentAdapter.notifyDataSetChanged();
     }
 
@@ -61,6 +78,12 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
 
+        if (mNewsStream == null){
+            mNewsStream = new GetLatestNewsStream[13];
+            for (int i = 1; i <= 12; ++i)
+                mNewsStream[i] = new GetLatestNewsStream(categories[i]);
+        }
+
         //加载新闻
         if (mFragmentAdapter == null) {
             mFragmentAdapter = new MyAdapter(new BriefNews[]{});
@@ -75,12 +98,12 @@ public class NewsFragment extends Fragment {
                 }
             });
             if (mCategory != TYPE_RECOMMEND) {
-                GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
-                Thread thread = new Thread(runnable);
-                thread.start();
+                //GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
+                //Thread thread = new Thread(runnable);
+                //thread.start();
+                mNewsStream[NewsApiCaller.map.get(mCategory)].getNext(handler, 10);
             } else {
                 //获取推荐
-
             }
         }
         else
