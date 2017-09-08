@@ -35,29 +35,29 @@ public class GetLatestNewsStream implements NewsStream
             END_OF_STREAM = true;
         briefNewsList.addAll(Arrays.asList(briefNewsArray));
         if (REQUESTING)
-            getNext(tempN); // only when requesting
+            getNext(paramHandler, tempN); // only when requesting
 
 
         }
     };
-    public GetLatestNewsStream(Handler handler, String category)
+    public GetLatestNewsStream(String category)
     {
         this.REQUESTING = false;
         this.END_OF_STREAM = false;
-        this.paramHandler = handler;
         this.currentPage = 0;
         this.category = category;
         if (this.category == "")
             this.category = null;
         briefNewsList = new ArrayList<BriefNews>();
     }
-    public GetLatestNewsStream(Handler handler)
+    public GetLatestNewsStream()
     {
-        this(handler, null);
+        this(null);
     }
     @Override
-    public void getNext(int n)
+    synchronized public void getNext(Handler handler, int n) // n cannot be zero
     {
+        paramHandler = handler;
         REQUESTING = true; // start
         tempN = n;
         if (briefNewsList.size() < n && !END_OF_STREAM)
@@ -89,5 +89,4 @@ public class GetLatestNewsStream implements NewsStream
             REQUESTING = false; // end
         }
     }
-
 }

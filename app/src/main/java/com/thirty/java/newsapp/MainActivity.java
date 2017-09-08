@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
+
         ArrayList<String> tempList = new ArrayList<String>();
         ArrayList<NewsFragment> fragmentTempList = new ArrayList<NewsFragment>();
         for(int i = 0; i < MyApplication.selected.length; i++){
@@ -77,10 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(flag == 1 && initial) {
-            Log.i("yyf", "MainActivity onstart return");
             return;
         }
-        Log.i("yyf", "MainActivity onstart start");
 
         myFragmentPagerAdapter.myInterestDataset = tempList.toArray(new String[0]);
 
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         View v = tabs_LinearLayout.getChildAt(MyApplication.focusPage);
         if(v != null)
             v.requestFocus();
+
     }
 
     @Override

@@ -19,15 +19,14 @@ class GetDetailedNewsRunnable implements Runnable
     @Override
     public void run()
     {
+        Bundle bundle = new Bundle();
         try
-        {
-            Bundle bundle = NewsApiCaller.getDetailedNews(newsID);
-            Message message = Message.obtain();
-            message.setData(bundle);
-            handler.sendMessage(message);
-        }
+        { bundle = NewsApiCaller.getDetailedNews(newsID); }
         catch (Exception e)
         { Log.i("back", "failure in latestNewsRunnable(): " + e.toString()); }
+        Message message = Message.obtain();
+        message.setData(bundle);
+        handler.sendMessage(message);
     }
     Handler handler;
     String newsID;

@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 public class NewsApiCaller
 {
-    private static final Map<String, Integer> map = new HashMap<String, Integer>(){{
+    public static final Map<String, Integer> map = new HashMap<String, Integer>(){{
         put("科技", 1); put("教育", 2); put("军事", 3);
         put("国内", 4); put("社会", 5); put("文化", 6);
         put("汽车", 7); put("国际", 8); put("体育", 9);

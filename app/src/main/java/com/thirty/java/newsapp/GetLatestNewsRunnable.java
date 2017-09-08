@@ -21,7 +21,7 @@ class GetLatestNewsRunnable implements Runnable
     GetLatestNewsRunnable(Handler handler, int pageNo, int pageSize)
     { this(handler, pageNo, pageSize, null); }
     @Override
-    public void run()
+    synchronized public void run()
     {
         try
         {

@@ -20,15 +20,21 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
             "社会", "文化", "汽车", "国际", "体育",
             "财经", "健康", "娱乐"
     };
+    public ArrayList<BriefNews>[] myNewsdataset;
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
+        initiateNewsData();
         fragments = new ArrayList<NewsFragment>();
         for (int i = 0; i < myInterestDataset.length; i++) {
             NewsFragment f = NewsFragment.newInstance(i);
             f.mCategory = myInterestDataset[i];
             fragments.add(f);
         }
+    }
+
+    public void initiateNewsData(){
+
     }
 
     @Override
