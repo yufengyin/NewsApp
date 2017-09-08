@@ -1,6 +1,9 @@
 package com.thirty.java.newsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,10 +16,38 @@ import android.view.ViewGroup;
  */
 
 public class NewsFragment extends Fragment {
+    final String TYPE_RECOMMEND = "推荐";
     private MyAdapter mFragmentAdapter;
     // 用一个id标明，否则难以识别效果。
     private static final String ID = "id";
     public String mCategory;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            BriefNews[] briefNewsArray = (BriefNews[]) message.getData().getParcelableArray("briefNewsArray");
+            onReceiveNews(briefNewsArray);
+        }
+    };
+
+    public void onReceiveNews(BriefNews[] briefNewsArray){
+        mFragmentAdapter.mDataset = briefNewsArray;
+        mFragmentAdapter.notifyDataSetChanged();
+    }
+
+    private Handler newsHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            onReceiveDetailedNews(detailedNews);
+        }
+    };
+
+    public void onReceiveDetailedNews(DetailedNews detailedNews){
+        Intent intent = new Intent(getContext(), NewsActivity.class);
+        intent.putExtra("News", detailedNews);
+        this.startActivity(intent);
+    }
+
     public static NewsFragment newInstance(int id) {
         NewsFragment f = new NewsFragment();
         Bundle b = new Bundle();
@@ -29,8 +60,31 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
-        mFragmentAdapter = new MyAdapter(new BriefNews[]{});
-        rv.setAdapter(mFragmentAdapter);
+
+        //加载新闻
+        if (mFragmentAdapter == null) {
+            mFragmentAdapter = new MyAdapter(new BriefNews[]{});
+            rv.setAdapter(mFragmentAdapter);
+
+            mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view , int position){
+                    GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mFragmentAdapter.mDataset[position].newsID);
+                    Thread thread = new Thread(runnable);
+                    thread.start();
+                }
+            });
+            if (mCategory != TYPE_RECOMMEND) {
+                GetLatestNewsRunnable runnable = new GetLatestNewsRunnable(handler, 1, 10, mCategory);
+                Thread thread = new Thread(runnable);
+                thread.start();
+            } else {
+                //获取推荐
+
+            }
+        }
+        else
+            rv.setAdapter(mFragmentAdapter);
         return rv;
     }
 }
