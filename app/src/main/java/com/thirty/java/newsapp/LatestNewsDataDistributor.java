@@ -52,7 +52,8 @@ public class LatestNewsDataDistributor
     {
         this.requestList = list;
         paramHandler = handler;
-        if (currentIndex < requestList.size())
+        if (currentIndex < requestList.size() && list.get(currentIndex).second > 0
+                && NewsApiCaller.map.containsKey(list.get(currentIndex).first))
         {
             categoryStreamMap
                     .get(list.get(currentIndex).first)
