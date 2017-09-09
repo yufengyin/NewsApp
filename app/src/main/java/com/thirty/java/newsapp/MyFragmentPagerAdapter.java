@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
             "财经", "健康", "娱乐"
     };
 
+    //定长13
     static public ArrayList<BriefNews>[] myNewsdataset = new ArrayList[MyApplication.interestDateSet.length];
 
     static void initiateInterestDataSet(){
@@ -59,7 +61,13 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 type = 0;
             else
                 type = MyApplication.map.get(briefNewsArray[0].newsClassTag);
-            myNewsdataset[type].addAll(Arrays.asList(briefNewsArray));
+
+            //合并
+            ArrayList<BriefNews> tempNews = new ArrayList<BriefNews>();
+            tempNews.addAll(Arrays.asList(briefNewsArray));
+            tempNews.addAll(myNewsdataset[type]);
+            myNewsdataset[type] = tempNews;
+
             for(int i = 0; i < myInterestDataset.length; ++i){
                 if(myInterestDataset[i].equals(MyApplication.interestDateSet[type])){
                     fragments.get(i).mFragmentAdapter.mDataset = myNewsdataset[type].toArray(new BriefNews[0]);
@@ -133,6 +141,16 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 requestForNews(i);
             }
         }
+    }
+
+    //某分类下拉加载
+    public void freshNewsData(String freshCategory){
+        for (int i = 0; i < MyApplication.interestDateSet.length; ++i)
+            if (MyApplication.interestDateSet[i].equals(freshCategory)){
+                if (myNewsdataset[i] == null)
+                    myNewsdataset[i] = new ArrayList<>();
+                requestForNews(i);
+            }
     }
 
     @Override

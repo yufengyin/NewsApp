@@ -1,6 +1,7 @@
 package com.thirty.java.newsapp;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import org.json.JSONObject;
@@ -17,8 +18,10 @@ import java.net.URL;
 
 public class PictureApi
 {
+//    static public
 //
-//    private static Bitmap getPictureByUrl(String urlString) throws Exception
+//
+//    static private Bitmap getPictureByUrl(String urlString) throws Exception
 //    {
 //        URL url = new URL(urlString);
 //        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -28,8 +31,17 @@ public class PictureApi
 //        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 //        {
 //            InputStream is = conn.getInputStream();
+//            Bitmap bitmap = BitmapFactory.decodeStream(is);
+//            is.close();
+//            return bitmap;
 //        }
 //        else
 //        { throw new Exception(); }
 //    }
+//    private static boolean storePictureToDir(Bitmap bitmap, String dir)
+//    {
+//
+//    }
+
+
 }

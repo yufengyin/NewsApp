@@ -15,34 +15,50 @@ public class DatabaseApi
     { new NewsDao().insert(new NewsBean(detailedNews)); }
     static public void deleteByIDInCache(String newsID) // delete if exists
     { new NewsDao().deleteById(newsID); }
-    static public DetailedNews queryByIDInCache(String newsID) // update if exists
-    { return new NewsDao().queryById(newsID).toDetailedNews(); }
-    static public void updateDetailedNewsInCache(DetailedNews detailedNews) // if not exists, return null
+    static public DetailedNews queryByIDInCache(String newsID) // if not exists, return null
+    {
+        NewsBean newsBean = new NewsDao().queryById(newsID);
+        if (newsBean == null)
+            return null;
+        else return newsBean.toDetailedNews();
+    }
+    static public void updateDetailedNewsInCache(DetailedNews detailedNews)
     { new NewsDao().update(new NewsBean(detailedNews)); }
-    static public List<DetailedNews> getAllInCache()
+    static public List<BriefNews> getAllInCache()
     {
         List<NewsBean> newsBeanList = new NewsDao().queryForAll();
         ArrayList<DetailedNews> arrayList = new ArrayList<DetailedNews>();
         for (int i = 0; i < newsBeanList.size(); i++)
             arrayList.add(newsBeanList.get(i).toDetailedNews());
-        return arrayList;
+        ArrayList<BriefNews> briefNewsArrayList = new ArrayList<BriefNews>();
+        for (int i = 0; i < arrayList.size(); i++)
+            briefNewsArrayList.add(arrayList.get(i).toBriefNews());
+        return briefNewsArrayList;
     }
 
     static public void insertDetailedNewsIntoCollection(DetailedNews detailedNews) // insert if not exist (else print Error)
     { new CollectionNewsDao().insert(new CollectionNewsBean(detailedNews)); }
     static public void deleteByIDInCollection(String newsID) // delete if exists
     { new CollectionNewsDao().deleteById(newsID); }
-    static public DetailedNews queryByIDInCollection(String newsID) // update if exists
-    { return new CollectionNewsDao().queryById(newsID).toDetailedNews(); }
-    static public void updateDetailedNewsInCollection(DetailedNews detailedNews) // if not exists, return null
+    static public DetailedNews queryByIDInCollection(String newsID) // if not exists, return null
+    {
+        CollectionNewsBean collectionNewsBean = new CollectionNewsDao().queryById(newsID);
+        if (collectionNewsBean == null)
+            return null;
+        else return collectionNewsBean.toDetailedNews();
+    }
+    static public void updateDetailedNewsInCollection(DetailedNews detailedNews)
     { new CollectionNewsDao().update(new CollectionNewsBean(detailedNews)); }
-    static public List<DetailedNews> getAllInCollection()
+    static public List<BriefNews> getAllInCollection()
     {
         List<CollectionNewsBean> newsBeanList = new CollectionNewsDao().queryForAll();
         ArrayList<DetailedNews> arrayList = new ArrayList<DetailedNews>();
         for (int i = 0; i < newsBeanList.size(); i++)
             arrayList.add(newsBeanList.get(i).toDetailedNews());
-        return arrayList;
+        ArrayList<BriefNews> briefNewsArrayList = new ArrayList<BriefNews>();
+        for (int i = 0; i < arrayList.size(); i++)
+            briefNewsArrayList.add(arrayList.get(i).toBriefNews());
+        return briefNewsArrayList;
     }
 
     static public boolean isRead(String newsID) {

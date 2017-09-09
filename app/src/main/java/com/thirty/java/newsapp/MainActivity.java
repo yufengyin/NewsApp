@@ -205,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 //fsy todo
-                Toast toast=Toast.makeText(getApplicationContext(), "refresh"+MyFragmentPagerAdapter.myInterestDataset[mViewPager.getCurrentItem()],Toast.LENGTH_SHORT);
-                toast.show();
+                myFragmentPagerAdapter.freshNewsData(MyFragmentPagerAdapter.myInterestDataset[mViewPager.getCurrentItem()]);
                 swipeRefreshView.setRefreshing(false);
             }
         });

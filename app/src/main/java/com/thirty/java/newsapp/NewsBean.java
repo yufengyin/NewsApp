@@ -18,7 +18,7 @@ public class NewsBean implements Serializable {
     @DatabaseField
     public String newsAuthor;
     @DatabaseField
-    public String unsplitNewsPictures;
+    public String newsPicture;
     @DatabaseField
     public String newsSource;
     @DatabaseField
@@ -41,19 +41,12 @@ public class NewsBean implements Serializable {
         newsTitle = detailedNews.newsTitle;
         newsURL = detailedNews.newsURL;
         newsContent = detailedNews.newsContent;
-
-        unsplitNewsPictures = "";
-        if (detailedNews.newsPictures.length > 0)
-        {
-            unsplitNewsPictures = detailedNews.newsPictures[0];
-            for (int i = 1; i < detailedNews.newsPictures.length; i++)
-                unsplitNewsPictures += " " + detailedNews.newsPictures[i];
-        }
+        newsPicture = detailedNews.newsPicture;
     }
 
     public DetailedNews toDetailedNews()
     {
-        DetailedNews news = new DetailedNews(newsClassTag, newsAuthor, newsID, unsplitNewsPictures,
+        DetailedNews news = new DetailedNews(newsClassTag, newsAuthor, newsID, newsPicture,
                 newsSource, newsTime, newsTitle, newsURL, newsContent);
         return news;
     };

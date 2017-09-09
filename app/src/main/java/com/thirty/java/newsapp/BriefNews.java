@@ -4,6 +4,7 @@ import android.os.Parcelable;
 import android.os.Parcel;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ public class BriefNews implements Parcelable{
     public String newsClassTag;
     public String newsAuthor;
     public String newsID;
-    public String[] newsPictures;
+    public String newsPicture;
     public String newsSource;
     public String newsTime;
     public String newsTitle;
@@ -27,14 +28,13 @@ public class BriefNews implements Parcelable{
     public BriefNews(String newsClassTag, String newsAuthor, String newsID, String unsplitNewsPictures, String newsSource,
                      String newsTime, String newsTitle, String newsURL, String newsIntro)
     {
+        this.newsPicture = "";
         Matcher matcher = pattern.matcher(unsplitNewsPictures);
-        Vector<String> vector = new Vector<String>();
-        while (matcher.find())
-        { vector.add(matcher.group()); }
+        if (matcher.find())
+            this.newsPicture = matcher.group();
         this.newsClassTag = newsClassTag;
         this.newsAuthor = newsAuthor;
         this.newsID = newsID;
-        this.newsPictures = (String[]) vector.toArray(new String[0]);
         this.newsSource = newsSource;
         this.newsTime = newsTime;
         this.newsTitle = newsTitle;
@@ -52,7 +52,7 @@ public class BriefNews implements Parcelable{
         out.writeString(newsClassTag);
         out.writeString(newsAuthor);
         out.writeString(newsID);
-        out.writeStringArray(newsPictures);
+        out.writeString(newsPicture);
         out.writeString(newsSource);
         out.writeString(newsTime);
         out.writeString(newsTitle);
@@ -79,11 +79,23 @@ public class BriefNews implements Parcelable{
         newsClassTag = in.readString();
         newsAuthor = in.readString();
         newsID = in.readString();
-        newsPictures = in.createStringArray();
+        newsPicture = in.readString();
         newsSource = in.readString();
         newsTime = in.readString();
         newsTitle = in.readString();
         newsURL = in.readString();
         newsIntro = in.readString();
+    }
+
+    boolean containsKeyword(List<String> keywordList)
+    {
+        for (int i = 0; i < keywordList.size(); i++)
+        {
+            if (newsTitle.indexOf(keywordList.get(i)) != -1)
+                return true;
+            if (newsIntro.indexOf(keywordList.get(i)) != -1)
+                return true;
+        }
+        return false;
     }
 }

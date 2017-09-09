@@ -40,10 +40,18 @@ public class DetailedNews extends BriefNews {
             return new DetailedNews(in);
         }
     };
-
     public DetailedNews(Parcel in)
     {
         super(in);
         newsContent = newsIntro; // rename
+    }
+    public BriefNews toBriefNews()
+    {
+        BriefNews briefNews = new BriefNews(newsClassTag, newsAuthor, newsID, newsPicture, newsSource,
+                newsTime, newsTitle, newsURL, newsContent);
+        if (briefNews.newsIntro.length() > 35)
+            briefNews.newsIntro = briefNews.newsIntro.substring(0, 35);
+        briefNews.newsIntro = briefNews.newsIntro + "...";
+        return briefNews;
     }
 }
