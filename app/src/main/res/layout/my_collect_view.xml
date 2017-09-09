@@ -41,7 +41,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:text="@string/collect_name"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>
 
             <Button
