@@ -66,11 +66,15 @@ public class PictureApi
 
     public static String getPictureNameFromCache(String newsID)
     {
-        return getPictureCacheDirectory().toString() + "/" + newsID + ".jpg";
+        String tempString = getPictureCacheDirectory().toString() + "/" + newsID + ".jpg";
+        Log.i("zyj", "getPictureNameFromCache(): " + tempString);
+        return tempString;
     }
     public static String getPictureNameFromCollection(String newsID)
     {
-        return getPictureCollectionDirectory().toString() + "/" + newsID + ".jpg";
+        String tempString = getPictureCollectionDirectory().toString() + "/" + newsID + ".jpg";
+        Log.i("zyj", "getPictureNameFromCollection(): " + tempString);
+        return tempString;
     }
 
     private static void storePictureToCache(Bitmap bitmap, String filename) throws Exception
