@@ -67,4 +67,10 @@ public class DatabaseApi
         return true;
     }
 
+    static public boolean isCollected(String newsID) {
+        if (queryByIDInCollection(newsID) == null)
+            return false;
+        return true;
+    }
+
 }

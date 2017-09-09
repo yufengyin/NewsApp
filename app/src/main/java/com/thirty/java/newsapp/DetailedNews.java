@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
 
 public class DetailedNews extends BriefNews {
     public String newsContent;
+
+    public DetailedNews(){
+        super();
+    }
+
     public DetailedNews(String newsClassTag, String newsAuthor, String newsID, String unsplitNewsPictures, String newsSource,
                          String newsTime, String newsTitle, String newsURL, String newsContent
                          )
