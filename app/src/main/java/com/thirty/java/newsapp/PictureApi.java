@@ -26,6 +26,9 @@ import java.net.URL;
 
 public class PictureApi
 {
+    // tryToFindLocalPicture: find local picture by newsID, return path if found, else null
+    // storePictureFromUrlToCollection:
+
     static public String tryToFindLocalPicture(String newsID)
     {
         String collectionStr = getPictureNameFromCollection(newsID);
@@ -36,12 +39,12 @@ public class PictureApi
         if (cacheFile.exists()) return cacheStr;
         return null;
     }
-    static public void storePictureFromUrlToCollection(String urlString, String filename) throws Exception
+    static public void storePictureFromUrlToCollection(String urlString, String filename) throws Exception // called by a sub thread
     {
         Bitmap bitmap = getPictureByUrl(urlString);
         storePictureToCollection(bitmap, filename);
     }
-    static public void storePictureFromUrlToCache(String urlString, String filename) throws Exception
+    static public void storePictureFromUrlToCache(String urlString, String filename) throws Exception // called by a sub thread
     {
         Bitmap bitmap = getPictureByUrl(urlString);
         storePictureToCache(bitmap, filename);
@@ -70,11 +73,11 @@ public class PictureApi
         return getPictureCollectionDirectory().toString() + "/" + newsID + ".jpg";
     }
 
-    public static void storePictureToCache(Bitmap bitmap, String filename) throws Exception
+    private static void storePictureToCache(Bitmap bitmap, String filename) throws Exception
     {
         storePictureToDir(bitmap, getPictureCacheDirectory().toString(), filename);
     }
-    public static void storePictureToCollection(Bitmap bitmap, String filename) throws Exception
+    private static void storePictureToCollection(Bitmap bitmap, String filename) throws Exception
     {
         storePictureToDir(bitmap, getPictureCollectionDirectory().toString(), filename);
     }

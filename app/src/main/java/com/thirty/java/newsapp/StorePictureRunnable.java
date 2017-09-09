@@ -49,11 +49,14 @@ class StorePictureRunnable implements Runnable
             message.what = NO_PICTURE;
         else {
             try {
-                if (this.DIR == TO_CACHE)
+                if (this.DIR == TO_CACHE) {
                     PictureApi.storePictureFromUrlToCache(urlString, newsID + ".jpg");
-                else
+                    bundle.putString("filename", PictureApi.getPictureNameFromCache(newsID));
+                }
+                else {
                     PictureApi.storePictureFromUrlToCollection(urlString, newsID + ".jpg");
-                bundle.putString("filename", PictureApi.getPictureNameFromCache(newsID));
+                    bundle.putString("filename", PictureApi.getPictureNameFromCollection(newsID));
+                }
                 message.what = SUCCESS;
             } catch (Exception e) {
                 message.what = DOWNLOAD_FAILED;
