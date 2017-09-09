@@ -49,6 +49,7 @@ public class NewsActivity extends AppCompatActivity {
         mNewsAuthor.setText(detailedNews.newsAuthor);
         mNewsTime.setText(detailedNews.newsTime);
         mNewsContent.setText(detailedNews.newsContent);
+        MyApplication.volumnOfCategory[MyApplication.map.get(mDetailedNews.newsClassTag)] += MyApplication.readDelta;
 
         DatabaseApi.insertDetailedNewsIntoCache(detailedNews);
     }
