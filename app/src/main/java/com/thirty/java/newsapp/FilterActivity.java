@@ -16,7 +16,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
-    private Button mAddButton, mBachButton;
+    private Button mAddButton, mBackButton;
     private EditText mEditText;
     private MyFilterAdapter mFilterAdapter;
     private RecyclerView mRecyclerView;
@@ -27,7 +27,7 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.my_filter_view);
 
         mAddButton = (Button)findViewById(R.id.add_button);
-        mBachButton = (Button)findViewById(R.id.back_button);
+        mBackButton = (Button)findViewById(R.id.back_button);
         mEditText = (EditText)findViewById(R.id.edit_text);
 
         mFilterAdapter = new MyFilterAdapter(MyApplication.filterWords);
@@ -54,7 +54,7 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
-        mBachButton.setOnClickListener(new View.OnClickListener() {
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

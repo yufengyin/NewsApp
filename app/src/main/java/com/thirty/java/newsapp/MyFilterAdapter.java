@@ -5,9 +5,11 @@ package com.thirty.java.newsapp;
  */
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,12 +24,14 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mFilterWord;
+        public Button mDeleteButton;
         public LinearLayout mFilterView;
 
         public ViewHolder(LinearLayout v) {
             super(v);
             mFilterView = v;
             mFilterWord = (TextView) v.findViewById(R.id.filter_word);
+            mDeleteButton = (Button) v.findViewById(R.id.delete_button);
         }
     }
 
@@ -51,10 +55,18 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mFilterWord.setText(mFilterDataSet.get(position));
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filterWord  = holder.mFilterWord.getText().toString();
+                mFilterDataSet.remove(filterWord);
+                notifyDataSetChanged();
+            }
+        });
         holder.itemView.setTag(position);
     }
 
