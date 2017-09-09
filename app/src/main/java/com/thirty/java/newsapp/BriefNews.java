@@ -4,6 +4,7 @@ import android.os.Parcelable;
 import android.os.Parcel;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -108,5 +109,14 @@ public class BriefNews implements Parcelable{
         if (newsPicture == "" || newsPicture == null)
             return false;
         return true;
+    }
+
+    static public List<BriefNews> filter(List<BriefNews> briefNewsList, List<String> keywordList)
+    {
+        List<BriefNews> resultList = new ArrayList<BriefNews>();
+        for (int i = 0; i < briefNewsList.size(); i++)
+        if (!briefNewsList.get(i).containsKeyword(keywordList))
+            resultList.add(briefNewsList.get(i));
+        return resultList;
     }
 }
