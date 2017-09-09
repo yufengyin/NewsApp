@@ -95,12 +95,9 @@ public class MainActivity extends AppCompatActivity {
             tv.setText(MyFragmentPagerAdapter.myInterestDataset[i]);
 
             v.setOnFocusChangeListener(new OnFocusChangeListener() {
-
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-
                     // 当用户选择了tab选项卡上面的子元素时候，相应的把ViewPager显示的页面调整到相应位置。
-
                     int count = tabs_LinearLayout.getChildCount();
                     for (int i = 0; i < count; i++) {
                         View cv = tabs_LinearLayout.getChildAt(i);
@@ -150,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
             tv.setText(MyFragmentPagerAdapter.myInterestDataset[i]);
 
             v.setOnFocusChangeListener(new OnFocusChangeListener() {
-
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     // 当用户选择了tab选项卡上面的子元素时候，相应的把ViewPager显示的页面调整到相应位置。
@@ -209,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 //fsy todo
-                Toast toast=Toast.makeText(getApplicationContext(), "refresh", Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(), "refresh"+MyFragmentPagerAdapter.myInterestDataset[mViewPager.getCurrentItem()],Toast.LENGTH_SHORT);
                 toast.show();
                 swipeRefreshView.setRefreshing(false);
             }
