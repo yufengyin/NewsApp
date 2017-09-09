@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Gravity;
 import android.view.Menu;
@@ -18,13 +19,28 @@ import android.widget.Toast;
  */
 
 public class CollectActivity extends AppCompatActivity {
-    private SearchView searchView;
     private Button mIndexButton, mSetButton;
+    private RecyclerView mRecyclerView;
+    private MyAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_collect_view);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        BriefNews[] newsData = getCollectNewsData();
+        mAdapter = new MyAdapter(newsData);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view , int position){
+                Intent intent = new Intent(CollectActivity.this, NewsActivity.class);
+                intent.putExtra("NewsID", mAdapter.mDataset[position].newsID);
+                startActivity(intent);
+            }
+        });
 
         //首页切换
         mIndexButton = (Button) findViewById(R.id.index_button);
@@ -47,29 +63,8 @@ public class CollectActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //使用菜单填充器获取menu下的菜单资源文件
-        getMenuInflater().inflate(R.menu.new_search_menu, menu);
-        //获取搜索的菜单组件
-        MenuItem menuItem = menu.findItem(R.id.search);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        //设置搜索的事件
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast t = Toast.makeText(CollectActivity.this, query, Toast.LENGTH_SHORT);
-                t.setGravity(Gravity.TOP, 0, 0);
-                t.show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
+    //zyj todo
+    BriefNews[] getCollectNewsData(){
+        return new BriefNews[]{};
     }
 }
