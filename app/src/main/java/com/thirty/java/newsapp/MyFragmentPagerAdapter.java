@@ -34,6 +34,16 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     static public ArrayList<BriefNews>[] myNewsdataset = new ArrayList[MyApplication.interestDateSet.length];
 
+    static void initiateInterestDataSet(){
+        ArrayList<String> tempList = new ArrayList<String>();
+        for(int i = 0; i < MyApplication.selected.length; i++){
+            if(MyApplication.selected[i]){
+                tempList.add(MyApplication.interestDateSet[i]);
+            }
+        }
+        myInterestDataset = tempList.toArray(new String[0]);
+    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
