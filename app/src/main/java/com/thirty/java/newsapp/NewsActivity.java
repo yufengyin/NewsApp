@@ -29,14 +29,15 @@ public class NewsActivity extends AppCompatActivity {
     private DetailedNews mDetailedNews;
     private String mNewsID;
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
-    private Button mBackButton, mReadButton;
+    private Button mBackButton, mReadButton, mCollectButton;
     private SpeechSynthesizer mTts = null;
+    private boolean ifCollect;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
-            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            onReceiveDetailedNews(detailedNews);
+            mDetailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            onReceiveDetailedNews(mDetailedNews);
         }
     };
 
@@ -118,5 +119,34 @@ public class NewsActivity extends AppCompatActivity {
                 mTts.startSpeaking(mNewsContent.getText().toString(), mSynListener);
             }
         });
+
+        //收藏新闻
+        mCollectButton = (Button) findViewById(R.id.collect_button);
+        //zyj todo
+        ifCollect = false;
+        if(ifCollect){
+            mCollectButton.setText("已收藏");
+        }
+        else{
+            mCollectButton.setText("收藏");
+        }
+        mCollectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeCollectFeature(mNewsID);
+                ifCollect = !ifCollect;
+                if(ifCollect){
+                    mCollectButton.setText("已收藏");
+                }
+                else{
+                    mCollectButton.setText("收藏");
+                }
+            }
+        });
+    }
+
+    //zyj todo
+    void changeCollectFeature(String NewsID){
+
     }
 }
