@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class LatestNewsDataDistributor
 {
-    static public final int RECOMMAND = 777;
+    static public final int RECOMMEND = 777;
 
     Handler paramHandler;
     List<BriefNews> briefNewsList;
@@ -68,7 +68,7 @@ public class LatestNewsDataDistributor
             bundle.putParcelableArray("briefNewsArray", briefNewsList.toArray(new BriefNews[0]));
             Message message = Message.obtain();
             message.setData(bundle);
-            message.what = RECOMMAND;
+            message.what = RECOMMEND;
             paramHandler.sendMessage(message);
             currentIndex = 0;
             briefNewsList = new ArrayList<BriefNews>();
