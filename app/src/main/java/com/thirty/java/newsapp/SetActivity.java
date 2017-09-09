@@ -21,7 +21,7 @@ import android.widget.Toast;
  */
 
 public class SetActivity extends AppCompatActivity {
-    private Button mIndexButton, mCollectButton, mInterestButton, mFilterButton;
+    private Button mIndexButton, mCollectButton, mInterestButton, mFilterButton, mColorThemeButton;
     private Switch mNightSwitch, mNoImageSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class SetActivity extends AppCompatActivity {
         mIndexButton = (Button) findViewById(R.id.index_button);
         mCollectButton = (Button) findViewById(R.id.collect_button);
         mInterestButton = (Button) findViewById(R.id.my_interest);
+        mColorThemeButton = (Button) findViewById(R.id.theme_color);
         mFilterButton = (Button) findViewById(R.id.my_filter);
         mNightSwitch = (Switch) findViewById(R.id.night_mode);
         mNoImageSwitch = (Switch) findViewById(R.id.no_image_mode);
@@ -68,6 +69,14 @@ public class SetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SetActivity.this, FilterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //主题选择
+        mColorThemeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
             }
         });
 

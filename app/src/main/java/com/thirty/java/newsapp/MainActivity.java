@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
             myFragmentPagerAdapter.fragments.get(i).mFragmentAdapter.notifyDataSetChanged();
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
-
         zyjDebug();
         initial = true;
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
