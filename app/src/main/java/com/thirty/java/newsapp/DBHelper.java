@@ -17,8 +17,8 @@ import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DB_NAME = "test.db";
-    private static final int DB_VERSION = 2;
-    private Dao<NewsBean, String> dao;
+    private static final int DB_VERSION = 3;
+    private Dao<NewsBean, String> cacheDao;
     private static DBHelper instance;
     public static synchronized DBHelper getHelper(Context context) {
         context = context.getApplicationContext();
@@ -59,16 +59,16 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
     public synchronized Dao<NewsBean, String> getDao() throws SQLException {
         Log.i("back", "getDao()");
-        if (dao == null)
+        if (cacheDao == null)
         {
-            dao = super.getDao(NewsBean.class);
+            cacheDao = super.getDao(NewsBean.class);
         }
-        return dao;
+        return cacheDao;
     }
     @Override
     public void close() {
         Log.i("back", "close()");
         super.close();
-        dao = null;
+        cacheDao = null;
     }
 }
