@@ -1,6 +1,8 @@
 package com.thirty.java.newsapp;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -258,6 +261,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zyjDebug(){
-
     }
 }
