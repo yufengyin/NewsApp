@@ -53,8 +53,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         // - replace the contents of the view with that element
         holder.mNewTitle.setText(mDataset[position].newsTitle);
         holder.mNewsText.setText(mDataset[position].newsIntro);
-        //zyj todo
-        if(false){
+        boolean isRead = DatabaseApi.isRead(mDataset[position].newsID);
+        if(!isRead){
             holder.mNewTitle.setTextColor(Color.BLACK);
             holder.mNewsText.setTextColor(Color.BLACK);
         }

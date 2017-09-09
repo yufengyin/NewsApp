@@ -24,6 +24,13 @@ public class CollectActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
 
     @Override
+    public void onResume(){
+        super.onResume();
+        mAdapter.mDataset = getCollectNewsData();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_collect_view);
@@ -63,8 +70,7 @@ public class CollectActivity extends AppCompatActivity {
         });
     }
 
-    //zyj todo
     BriefNews[] getCollectNewsData(){
-        return new BriefNews[]{};
+        return DatabaseApi.getAllInCollection().toArray(new BriefNews[0]);
     }
 }
