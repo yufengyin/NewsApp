@@ -3,6 +3,7 @@ package com.thirty.java.newsapp;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,11 +19,14 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Button mCollectButton, mSetButton;
+    private SwipeRefreshLayout swipeRefreshView;
     private LinearLayout tabs_LinearLayout;
     private ViewPager mViewPager;
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
@@ -139,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        MyFragmentPagerAdapter.initiateInterestDataSet();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
             View v = LayoutInflater.from(this).inflate(R.layout.view, null);
             TextView tv = (TextView) v;
@@ -197,6 +202,18 @@ public class MainActivity extends AppCompatActivity {
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
 
         mTts.startSpeaking("膜峰膜峰膜峰", mSynListener);
+
+        //下拉加载更多
+        swipeRefreshView = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        swipeRefreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //fsy todo
+                Toast toast=Toast.makeText(getApplicationContext(), "refresh", Toast.LENGTH_SHORT);
+                toast.show();
+                swipeRefreshView.setRefreshing(false);
+            }
+        });
 
         //我的收藏切换
         mCollectButton = (Button) findViewById(R.id.collect_button);

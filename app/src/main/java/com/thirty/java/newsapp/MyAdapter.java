@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         // - replace the contents of the view with that element
         holder.mNewTitle.setText(mDataset[position].newsTitle);
         holder.mNewsText.setText(mDataset[position].newsIntro);
-
+        //zyj todo
+        if(false){
+            holder.mNewTitle.setTextColor(Color.BLACK);
+            holder.mNewsText.setTextColor(Color.BLACK);
+        }
+        else{
+            holder.mNewTitle.setTextColor(Color.GRAY);
+            holder.mNewsText.setTextColor(Color.GRAY);
+        }
         holder.itemView.setTag(position);
     }
 

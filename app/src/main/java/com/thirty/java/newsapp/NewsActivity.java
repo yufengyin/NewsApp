@@ -1,6 +1,8 @@
 package com.thirty.java.newsapp;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,9 +26,27 @@ import org.w3c.dom.Text;
  */
 
 public class NewsActivity extends AppCompatActivity {
+    private DetailedNews mDetailedNews;
+    private String mNewsID;
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
-    private Button mBackButton, mReadButton;
+    private Button mBackButton, mReadButton, mCollectButton;
     private SpeechSynthesizer mTts = null;
+    private boolean ifCollect;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            mDetailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+            onReceiveDetailedNews(mDetailedNews);
+        }
+    };
+
+    public void onReceiveDetailedNews(DetailedNews detailedNews){
+        mNewsTitle.setText(detailedNews.newsTitle);
+        mNewsAuthor.setText(detailedNews.newsAuthor);
+        mNewsTime.setText(detailedNews.newsTime);
+        mNewsContent.setText(detailedNews.newsContent);
+    }
 
     private SynthesizerListener mSynListener = new SynthesizerListener() {
         //会话结束回调接口，没有错误时，error为null
@@ -59,20 +79,16 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_news_view);
 
-        DetailedNews detailedNews = (DetailedNews) getIntent().getParcelableExtra("News");
-
         mNewsTitle = (TextView) findViewById(R.id.news_name);
-        mNewsTitle.setText(detailedNews.newsTitle);
-
-
         mNewsAuthor = (TextView) findViewById(R.id.news_author);
-        mNewsAuthor.setText(detailedNews.newsAuthor);
-
         mNewsTime = (TextView) findViewById(R.id.news_time);
-        mNewsTime.setText(detailedNews.newsTime);
-
         mNewsContent = (TextView) findViewById(R.id.news_text);
-        mNewsContent.setText(detailedNews.newsContent);
+
+        mNewsID = (String) getIntent().getStringExtra("NewsID");
+
+        GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(handler, mNewsID);
+        Thread thread = new Thread(runnable);
+        thread.start();
 
         //退出新闻界面
         mBackButton = (Button) findViewById(R.id.back_button);
@@ -100,8 +116,37 @@ public class NewsActivity extends AppCompatActivity {
                 mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
                 mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
 
-                mTts.startSpeaking(((DetailedNews) getIntent().getParcelableExtra("News")).newsContent, mSynListener);
+                mTts.startSpeaking(mNewsContent.getText().toString(), mSynListener);
             }
         });
+
+        //收藏新闻
+        mCollectButton = (Button) findViewById(R.id.collect_button);
+        //zyj todo
+        ifCollect = false;
+        if(ifCollect){
+            mCollectButton.setText("已收藏");
+        }
+        else{
+            mCollectButton.setText("收藏");
+        }
+        mCollectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeCollectFeature(mNewsID);
+                ifCollect = !ifCollect;
+                if(ifCollect){
+                    mCollectButton.setText("已收藏");
+                }
+                else{
+                    mCollectButton.setText("收藏");
+                }
+            }
+        });
+    }
+
+    //zyj todo
+    void changeCollectFeature(String NewsID){
+
     }
 }

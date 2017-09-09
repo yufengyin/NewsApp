@@ -32,6 +32,7 @@ class GetLatestNewsRunnable implements Runnable
                 bundle = NewsApiCaller.getLatestNews(pageNo, pageSize);
             Message message = Message.obtain();
             message.setData(bundle);
+            message.what = 0;
             handler.sendMessage(message);
         }
         catch (Exception e)

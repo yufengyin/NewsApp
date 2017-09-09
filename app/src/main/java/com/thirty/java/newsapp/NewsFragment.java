@@ -45,6 +45,14 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         rv = (RecyclerView) inflater.inflate(R.layout.my_index_view, container, false);
         rv.setAdapter(mFragmentAdapter);
+        mFragmentAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view , int position){
+                Intent intent = new Intent(getContext(), NewsActivity.class);
+                intent.putExtra("NewsID", mFragmentAdapter.mDataset[position].newsID);
+                startActivity(intent);
+            }
+        });
         return rv;
     }
 }
