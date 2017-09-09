@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 
 public class BriefNews implements Parcelable{
-    final static Pattern pattern = Pattern.compile("http://.*\\.jpg");
+    final static Pattern pattern = Pattern.compile("http://.*?\\.jpe?g");
     public String newsClassTag;
     public String newsAuthor;
     public String newsID;
