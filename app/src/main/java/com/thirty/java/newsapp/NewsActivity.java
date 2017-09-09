@@ -25,8 +25,10 @@ import org.w3c.dom.Text;
 
 public class NewsActivity extends AppCompatActivity {
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
-    private Button mBackButton, mReadButton;
+    private Button mBackButton, mReadButton, mCollectButton;
+    private DetailedNews detailedNews;
     private SpeechSynthesizer mTts = null;
+    private boolean ifCollect;
 
     private SynthesizerListener mSynListener = new SynthesizerListener() {
         //会话结束回调接口，没有错误时，error为null
@@ -59,7 +61,7 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_news_view);
 
-        DetailedNews detailedNews = (DetailedNews) getIntent().getParcelableExtra("News");
+        detailedNews = (DetailedNews) getIntent().getParcelableExtra("News");
 
         mNewsTitle = (TextView) findViewById(R.id.news_name);
         mNewsTitle.setText(detailedNews.newsTitle);
@@ -103,5 +105,34 @@ public class NewsActivity extends AppCompatActivity {
                 mTts.startSpeaking(((DetailedNews) getIntent().getParcelableExtra("News")).newsContent, mSynListener);
             }
         });
+
+        //收藏新闻
+        mCollectButton = (Button) findViewById(R.id.collect_button);
+        //zyj todo
+        ifCollect = false;
+        if(ifCollect){
+            mCollectButton.setText("已收藏");
+        }
+        else{
+            mCollectButton.setText("收藏");
+        }
+        mCollectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeCollectFeature(detailedNews);
+                ifCollect = !ifCollect;
+                if(ifCollect){
+                    mCollectButton.setText("已收藏");
+                }
+                else{
+                    mCollectButton.setText("收藏");
+                }
+            }
+        });
+    }
+
+    //zyj todo
+    void changeCollectFeature(DetailedNews detailedNews){
+
     }
 }
