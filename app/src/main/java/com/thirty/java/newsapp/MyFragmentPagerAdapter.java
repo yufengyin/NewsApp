@@ -63,6 +63,17 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         initiateNewsData();
     }
 
+    public void requestForNews(int mCategoryNo){
+        if (mCategoryNo == 0){
+            //推荐
+
+        }
+        else{
+            //正常分类
+            mNewsStream[mCategoryNo].getNext(handler, 10);
+        }
+    }
+
     public void initiateNewsData(){
         //如果流未被创建则创建流
         if (mNewsStream == null){
@@ -71,15 +82,11 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 mNewsStream[i] = new GetLatestNewsStream(MyApplication.interestDateSet[i]);
         }
 
-        for (int i = 1; i < MyApplication.interestDateSet.length; ++i) {
+        for (int i = 0; i < MyApplication.interestDateSet.length; ++i) {
             if (MyApplication.selected[i] && myNewsdataset[i] == null) {
                 myNewsdataset[i] = new ArrayList<>();
-                mNewsStream[i].getNext(handler, 10);
+                requestForNews(i);
             }
-        }
-        //to do
-        if (myNewsdataset[0] == null){
-            myNewsdataset[0] = new ArrayList<>();
         }
     }
 
