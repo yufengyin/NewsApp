@@ -28,5 +28,6 @@
     <string name="cate10">财经</string>
     <string name="cate11">健康</string>
     <string name="cate12">娱乐</string>
-
+    <string name="add">添加</string>
+    <string name="delete">删除</string>
 </resources>
