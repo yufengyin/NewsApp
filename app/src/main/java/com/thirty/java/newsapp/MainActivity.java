@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        MyFragmentPagerAdapter.initiateInterestDataSet();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
             View v = LayoutInflater.from(this).inflate(R.layout.view, null);
             TextView tv = (TextView) v;
@@ -202,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTts.startSpeaking("膜峰膜峰膜峰", mSynListener);
 
+        //下拉加载更多
         swipeRefreshView = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         swipeRefreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
