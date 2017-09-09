@@ -27,7 +27,11 @@ import java.net.URL;
 public class PictureApi
 {
     // tryToFindLocalPicture: find local picture by newsID, return path if found, else null
-    // storePictureFromUrlToCollection:
+    // getPictureNameFromCache(Collection): a convenient way to make up a filename
+    // requestDownloadPictureToCache(Collection): request to load a picture
+    // message.what = 1. StorePictureRunnable.NO_PICTURE  ->  detailedNews has no picture
+    //                2. StorePictureRunnable.DOWNLOAD_FAILED  ->  download failed
+    //                3. StorePictureRunnable.SUCCESS  ->  getString("filename") return the filename
 
     static public String tryToFindLocalPicture(String newsID)
     {

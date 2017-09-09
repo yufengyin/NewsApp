@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by zyj on 2017/9/6.
  */
 
-class GetDetailedNewsRunnable implements Runnable
+public class GetDetailedNewsRunnable implements Runnable
 {
     GetDetailedNewsRunnable(Handler handler, String newsID)
     {
