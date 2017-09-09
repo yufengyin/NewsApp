@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DB_NAME = "test.db";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 1;
     private Dao<NewsBean, String> cacheDao;
     private Dao<CollectionNewsBean, String> collectionDao;
     private static DBHelper instance;
@@ -61,7 +61,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
     }
     public synchronized Dao<NewsBean, String> getCacheDao() throws SQLException {
-        Log.i("back", "getDao()");
+        Log.i("back", "getCacheDao()");
         if (cacheDao == null)
         {
             cacheDao = super.getDao(NewsBean.class);
@@ -69,7 +69,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return cacheDao;
     }
     public synchronized Dao<CollectionNewsBean, String> getCollectionDao() throws SQLException {
-        Log.i("back", "getDao()");
+        Log.i("back", "getCollectionDao()");
         if (collectionDao == null)
         {
             collectionDao = super.getDao(CollectionNewsBean.class);

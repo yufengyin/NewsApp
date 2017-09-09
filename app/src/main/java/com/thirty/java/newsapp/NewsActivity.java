@@ -123,7 +123,9 @@ public class NewsActivity extends AppCompatActivity {
         //收藏新闻
         mCollectButton = (Button) findViewById(R.id.collect_button);
         //zyj todo
-        ifCollect = false;
+        //ifCollect = false;
+        ifCollect = ((DatabaseApi.queryByIDInCollection(mNewsID)) != null);
+        Log.i("fsy", "check " + ifCollect);
         if(ifCollect){
             mCollectButton.setText("已收藏");
         }
@@ -147,6 +149,17 @@ public class NewsActivity extends AppCompatActivity {
 
     //zyj todo
     void changeCollectFeature(String NewsID){
-
+        if (ifCollect){
+            //收藏到不收藏
+            DatabaseApi.deleteByIDInCollection(mNewsID);
+            Log.i("fsy", "delete");
+        }
+        else{
+            //不收藏到收藏
+            DatabaseApi.insertDetailedNewsIntoCollection(mDetailedNews);
+            Log.i("fsy", "add");
+            Log.i("fsy", mDetailedNews.newsID);
+            Log.i("back", DatabaseApi.getAllInCollection().toString());
+        }
     }
 }

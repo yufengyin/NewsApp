@@ -204,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //fsy todo
                 myFragmentPagerAdapter.freshNewsData(MyFragmentPagerAdapter.myInterestDataset[mViewPager.getCurrentItem()]);
                 swipeRefreshView.setRefreshing(false);
             }
