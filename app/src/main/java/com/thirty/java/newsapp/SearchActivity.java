@@ -36,20 +36,6 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
-    private Handler newsHandler = new Handler() {
-        @Override
-        public void handleMessage(Message message) {
-            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-            onReceiveDetailedNews(detailedNews);
-        }
-    };
-
-    public void onReceiveDetailedNews(DetailedNews detailedNews){
-        Intent intent = new Intent(this, NewsActivity.class);
-        intent.putExtra("News", detailedNews);
-        this.startActivity(intent);
-    }
-
     public void onReceiveNews(BriefNews[] briefNewsArray){
         mAdapter.mDataset = briefNewsArray;
         mAdapter.notifyDataSetChanged();
@@ -66,9 +52,9 @@ public class SearchActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view , int position){
-                GetDetailedNewsRunnable runnable = new GetDetailedNewsRunnable(newsHandler, mAdapter.mDataset[position].newsID);
-                Thread thread = new Thread(runnable);
-                thread.start();
+                Intent intent = new Intent(SearchActivity.this, NewsActivity.class);
+                intent.putExtra("NewsID", mAdapter.mDataset[position].newsID);
+                startActivity(intent);
             }
         });
     }
