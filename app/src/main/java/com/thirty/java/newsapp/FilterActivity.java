@@ -30,10 +30,9 @@ public class FilterActivity extends AppCompatActivity {
         mBachButton = (Button)findViewById(R.id.back_button);
         mEditText = (EditText)findViewById(R.id.edit_text);
 
-        MyApplication.filterWords.add("456");
         mFilterAdapter = new MyFilterAdapter(MyApplication.filterWords);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_filter_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mFilterAdapter);
 
@@ -45,11 +44,9 @@ public class FilterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mEditText.getText().length() > 0) {
                     String temp = mEditText.getText().toString();
-                    Log.i("fsy", "001");
                     if (!MyApplication.filterWords.contains(temp)) {
-                        Log.i("fsy", "002");
                         mFilterAdapter.mFilterDataSet.add(temp);
-                        Log.i("fsy", "003" + mFilterAdapter.mFilterDataSet.toString());
+                        Log.i("yyf", mFilterAdapter.mFilterDataSet.toString());
                         mFilterAdapter.notifyDataSetChanged();
                     }
                     mEditText.setText("");
@@ -65,4 +62,3 @@ public class FilterActivity extends AppCompatActivity {
         });
     }
 }
-
