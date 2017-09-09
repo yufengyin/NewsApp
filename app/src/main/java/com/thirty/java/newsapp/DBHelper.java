@@ -17,15 +17,16 @@ import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DB_NAME = "test.db";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     private Dao<NewsBean, String> cacheDao;
+    private Dao<CollectionNewsBean, String> collectionDao;
     private static DBHelper instance;
-    public static synchronized DBHelper getHelper(Context context) {
-        context = context.getApplicationContext();
+
+    public static synchronized DBHelper getHelper() {
         if (instance == null) {
             synchronized (DBHelper.class) {
                 if (instance == null) {
-                    instance = new DBHelper(context);
+                    instance = new DBHelper(MyApplication.getContext());
                 }
             }
         }
@@ -39,7 +40,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
         Log.i("back", "onCreate()");
         try {
-              TableUtils.createTable(connectionSource, NewsBean.class);
+            TableUtils.createTable(connectionSource, NewsBean.class);
+            TableUtils.createTable(connectionSource, CollectionNewsBean.class);
         } catch (SQLException e) {
             Log.i("back", "onCreate(): " + e.toString());
         }
@@ -51,19 +53,28 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         try
         {
             TableUtils.dropTable(connectionSource, NewsBean.class, true);
+            TableUtils.dropTable(connectionSource, CollectionNewsBean.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch (SQLException e)
         {
             Log.i("back", "onUpgrade(): " + e.toString());
         }
     }
-    public synchronized Dao<NewsBean, String> getDao() throws SQLException {
+    public synchronized Dao<NewsBean, String> getCacheDao() throws SQLException {
         Log.i("back", "getDao()");
         if (cacheDao == null)
         {
             cacheDao = super.getDao(NewsBean.class);
         }
         return cacheDao;
+    }
+    public synchronized Dao<CollectionNewsBean, String> getCollectionDao() throws SQLException {
+        Log.i("back", "getDao()");
+        if (collectionDao == null)
+        {
+            collectionDao = super.getDao(CollectionNewsBean.class);
+        }
+        return collectionDao;
     }
     @Override
     public void close() {

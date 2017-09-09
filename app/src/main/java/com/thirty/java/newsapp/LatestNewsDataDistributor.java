@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class LatestNewsDataDistributor
 {
+    static public final int RECOMMAND = 777;
+
     Handler paramHandler;
     List<BriefNews> briefNewsList;
 
@@ -52,9 +54,10 @@ public class LatestNewsDataDistributor
     {
         this.requestList = list;
         paramHandler = handler;
-        if (currentIndex < requestList.size() && list.get(currentIndex).second > 0
-                && NewsApiCaller.map.containsKey(list.get(currentIndex).first))
+        if (currentIndex < requestList.size())
         {
+            if ( list.get(currentIndex).second > 0
+                && NewsApiCaller.map.containsKey(list.get(currentIndex).first))
             categoryStreamMap
                     .get(list.get(currentIndex).first)
                     .getNext(tranferHandler, list.get(currentIndex).second);
@@ -65,6 +68,7 @@ public class LatestNewsDataDistributor
             bundle.putParcelableArray("briefNewsArray", briefNewsList.toArray(new BriefNews[0]));
             Message message = Message.obtain();
             message.setData(bundle);
+            message.what = RECOMMAND;
             paramHandler.sendMessage(message);
             currentIndex = 0;
             briefNewsList = new ArrayList<BriefNews>();

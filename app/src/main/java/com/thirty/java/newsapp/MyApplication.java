@@ -1,6 +1,7 @@
 package com.thirty.java.newsapp;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,6 +30,13 @@ public class MyApplication extends Application {
     static int focusPage = 0;
     public GetLatestNewsStream myNewsStream;
 
+    // zyj database initialize
+    static private Context applicationContext;
+    static public Context getContext()
+    { return applicationContext; }
+    // zyj database initialize
+
+
     public MyApplication(){
         super();
         for (int i = 1; i < interestDateSet.length; ++i)
@@ -38,6 +46,12 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // zyj database initialize
+        applicationContext = getApplicationContext();
+        // zyj database initialize
+
         Arrays.fill(selected, true);
+
     }
 }

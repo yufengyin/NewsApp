@@ -92,8 +92,6 @@ public class NewsApiCaller
         { throw new Exception(); }
     }
 
-
-
     public static Bundle getLatestNews(int pageNo, int pageSize) throws Exception
     {
         String param = "?pageNo=" + pageNo + "&pageSize=" + pageSize;
