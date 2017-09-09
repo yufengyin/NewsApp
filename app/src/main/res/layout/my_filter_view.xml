@@ -25,7 +25,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/delete_button"
+        android:id="@+id/back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -34,10 +34,11 @@
         android:text="@string/back"/>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"
-        android:layout_above="@id/delete_button">
+        android:layout_above="@id/back_button">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

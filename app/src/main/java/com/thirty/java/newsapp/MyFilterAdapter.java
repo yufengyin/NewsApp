@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHolder> implements View.OnClickListener {
-    public String[] mFilterDataSet;
+    public ArrayList<String> mFilterDataSet;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -30,7 +32,7 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyFilterAdapter(String[] myDataset) {
+    public MyFilterAdapter(ArrayList<String> myDataset) {
         mFilterDataSet = myDataset;
     }
 
@@ -52,14 +54,14 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mFilterWord.setText(mFilterDataSet[position]);
+        holder.mFilterWord.setText(mFilterDataSet.get(position));
         holder.itemView.setTag(position);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mFilterDataSet.length;
+        return mFilterDataSet.size();
     }
 
     private OnItemClickListener mOnItemClickListener = null;
