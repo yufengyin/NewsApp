@@ -17,7 +17,7 @@ import android.util.Log;
  * Created by zyj on 2017/9/9.
  */
 
-class StorePictureRunnable implements Runnable
+public class StorePictureRunnable implements Runnable
 {
     static public final int NO_PICTURE = 111;
     static public final int DOWNLOAD_FAILED = 222;
@@ -45,7 +45,7 @@ class StorePictureRunnable implements Runnable
     {
         Bundle bundle = new Bundle();
         Message message = Message.obtain();
-        if (urlString == null)
+        if (urlString == null || urlString.length() == 0)
             message.what = NO_PICTURE;
         else {
             try {
@@ -65,9 +65,9 @@ class StorePictureRunnable implements Runnable
         message.setData(bundle);
         handler.sendMessage(message);
     }
-    Handler handler;
-    String newsID;
-    String urlString;
+    private Handler handler;
+    private String newsID;
+    private String urlString;
 
-    int DIR;
+    private int DIR;
 }

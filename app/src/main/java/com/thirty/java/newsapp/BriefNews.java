@@ -91,7 +91,7 @@ public class BriefNews implements Parcelable{
         newsIntro = in.readString();
     }
 
-    boolean containsKeyword(List<String> keywordList)
+    public boolean containsKeyword(List<String> keywordList)
     {
         for (int i = 0; i < keywordList.size(); i++)
         {
@@ -101,5 +101,12 @@ public class BriefNews implements Parcelable{
                 return true;
         }
         return false;
+    }
+
+    public boolean containsPicture()
+    {
+        if (newsPicture == "" || newsPicture == null)
+            return false;
+        return true;
     }
 }

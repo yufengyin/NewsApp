@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by zyj on 2017/9/5.
  */
 
-class GetLatestNewsRunnable implements Runnable
+public class GetLatestNewsRunnable implements Runnable
 {
     GetLatestNewsRunnable(Handler handler, int pageNo, int pageSize, String category)
     {
