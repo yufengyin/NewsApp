@@ -82,4 +82,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         super.close();
         cacheDao = null;
     }
+
+    public void clearCacheTable() throws SQLException
+    {
+        TableUtils.clearTable(getConnectionSource(), NewsBean.class);
+    }
+
+    public void clearCollectionTable() throws SQLException
+    {
+        TableUtils.clearTable(getConnectionSource(), CollectionNewsBean.class);
+    }
 }
