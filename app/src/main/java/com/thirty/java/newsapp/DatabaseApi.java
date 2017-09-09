@@ -27,4 +27,10 @@ public class DatabaseApi
             arrayList.add(newsBeanList.get(i).toDetailedNews());
         return arrayList;
     }
+
+    static public boolean isRead(Context context, String newsID) {
+        if (queryByID(context, newsID) == null)
+            return false;
+        return true;
+    }
 }
