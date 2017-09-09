@@ -15,9 +15,9 @@ public class DatabaseApi
     { new NewsDao().insert(new NewsBean(detailedNews)); }
     static public void deleteByIDInCache(String newsID) // delete if exists
     { new NewsDao().deleteById(newsID); }
-    static public DetailedNews queryByIDInCache(String newsID) // update if exists
+    static public DetailedNews queryByIDInCache(String newsID) // if not exists, return null
     { return new NewsDao().queryById(newsID).toDetailedNews(); }
-    static public void updateDetailedNewsInCache(DetailedNews detailedNews) // if not exists, return null
+    static public void updateDetailedNewsInCache(DetailedNews detailedNews)
     { new NewsDao().update(new NewsBean(detailedNews)); }
     static public List<DetailedNews> getAllInCache()
     {
