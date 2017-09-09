@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
+
+        //刷新页面
+        for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
+            myFragmentPagerAdapter.fragments.get(i).mFragmentAdapter.notifyDataSetChanged();
+
         ArrayList<String> tempList = new ArrayList<String>();
         for(int i = 0; i < MyApplication.selected.length; i++){
             if(MyApplication.selected[i]){

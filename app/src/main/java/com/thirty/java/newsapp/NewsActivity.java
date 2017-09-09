@@ -46,6 +46,8 @@ public class NewsActivity extends AppCompatActivity {
         mNewsAuthor.setText(detailedNews.newsAuthor);
         mNewsTime.setText(detailedNews.newsTime);
         mNewsContent.setText(detailedNews.newsContent);
+
+        DatabaseApi.insertDetailedNewsIntoCache(detailedNews);
     }
 
     private SynthesizerListener mSynListener = new SynthesizerListener() {
