@@ -18,14 +18,18 @@ import android.widget.Toast;
  */
 
 public class SetActivity extends AppCompatActivity {
-    private Button mIndexButton, mCollectButton, mInterestButton;
+    private Button mIndexButton, mCollectButton, mInterestButton, mFilterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_set_view);
 
-        //首页切换
         mIndexButton = (Button) findViewById(R.id.index_button);
+        mCollectButton = (Button) findViewById(R.id.collect_button);
+        mInterestButton = (Button) findViewById(R.id.my_interest);
+        mFilterButton = (Button)findViewById(R.id.my_filter);
+
+        //首页切换
         mIndexButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +38,6 @@ public class SetActivity extends AppCompatActivity {
         });
 
         //我的收藏切换
-        mCollectButton = (Button) findViewById(R.id.collect_button);
         mCollectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,11 +48,19 @@ public class SetActivity extends AppCompatActivity {
         });
 
         //我的关注
-        mInterestButton = (Button) findViewById(R.id.my_interest);
         mInterestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SetActivity.this, InterestSetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //屏蔽词
+        mFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SetActivity.this, FilterActivity.class);
                 startActivity(intent);
             }
         });

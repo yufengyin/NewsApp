@@ -3,6 +3,8 @@ package com.thirty.java.newsapp;
 import android.app.Application;
 import android.content.Context;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,8 @@ public class MyApplication extends Application {
         put("汽车", 7); put("国际", 8); put("体育", 9);
         put("财经", 10); put("健康", 11); put("娱乐", 12);
     }};
+
+    public static ArrayList<String> filterWords = new ArrayList<String>();
 
     static public boolean selected[] = new boolean[interestDateSet.length];
     static public double volumnOfCategory[] = new double[interestDateSet.length];

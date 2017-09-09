@@ -61,5 +61,10 @@
             android:name=".InterestSetActivity">
 
         </activity>
+
+        <activity
+            android:name=".FilterActivity">
+
+        </activity>
     </application>
 </manifest>
