@@ -64,7 +64,10 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
             //合并
             ArrayList<BriefNews> tempNews = new ArrayList<BriefNews>();
-            tempNews.addAll(Arrays.asList(briefNewsArray));
+
+            //先筛掉屏蔽的
+            tempNews.addAll(BriefNews.filter(Arrays.asList(briefNewsArray), MyApplication.filterWords));
+
             tempNews.addAll(myNewsdataset[type]);
             myNewsdataset[type] = tempNews;
 
