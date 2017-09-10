@@ -3,21 +3,16 @@ package com.thirty.java.newsapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -114,13 +109,11 @@ public class PictureApi
     public static String getPictureNameFromCache(String newsID)
     {
         String tempString = getPictureCacheDirectory().toString() + "/" + newsID + ".jpg";
-        Log.i("zyj", "getPictureNameFromCache(): " + tempString);
         return tempString;
     }
     public static String getPictureNameFromCollection(String newsID)
     {
         String tempString = getPictureCollectionDirectory().toString() + "/" + newsID + ".jpg";
-        Log.i("zyj", "getPictureNameFromCollection(): " + tempString);
         return tempString;
     }
 
@@ -157,7 +150,6 @@ public class PictureApi
             dirFile.mkdirs();
         }
         String joinedFilename = dir + "/" + filename;
-        Log.i("zyj", "storePictureToDir(): " + joinedFilename);
         File file = new File(joinedFilename);
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
@@ -171,10 +163,10 @@ public class PictureApi
             appCacheDir = getInternalCacheDirectory(MyApplication.getContext(), type);
         }
         if (appCacheDir == null){
-            Log.e("getCacheDirectory","getCacheDirectory fail ,the reason is mobile phone unknown exception !");
+            //
         }else {
             if (!appCacheDir.exists()&&!appCacheDir.mkdirs()){
-                Log.e("getCacheDirectory","getCacheDirectory fail ,the reason is make directory fail !");
+                //
             }
         }
         return appCacheDir;
@@ -193,14 +185,14 @@ public class PictureApi
             }
 
             if (appCacheDir == null){
-                Log.e("getExternalDirectory","getExternalDirectory fail ,the reason is sdCard unknown exception !");
+                //
             }else {
                 if (!appCacheDir.exists()&&!appCacheDir.mkdirs()){
-                    Log.e("getExternalDirectory","getExternalDirectory fail ,the reason is make directory fail !");
+                    //
                 }
             }
         }else {
-            Log.e("getExternalDirectory","getExternalDirectory fail ,the reason is sdCard nonexistence or sdCard mount fail !");
+            //
         }
         return appCacheDir;
     }
@@ -213,14 +205,13 @@ public class PictureApi
         }
 
         if (!appCacheDir.exists()&&!appCacheDir.mkdirs()){
-            Log.e("getInternalDirectory","getInternalDirectory fail ,the reason is make directory fail !");
+            //
         }
         return appCacheDir;
     }
 
     private static Bitmap getPictureByUrl(String urlString) throws Exception
     {
-        Log.i("zyj", "getPictureByUrl(): " + urlString);
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5 * 1000);

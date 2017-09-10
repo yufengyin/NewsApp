@@ -1,34 +1,23 @@
 package com.thirty.java.newsapp;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.provider.ContactsContract;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.iflytek.cloud.*;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;

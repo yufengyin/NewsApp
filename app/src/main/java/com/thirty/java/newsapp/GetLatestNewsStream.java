@@ -19,7 +19,7 @@ public class GetLatestNewsStream implements NewsStream
 
     int tempN;
     int currentPage;
-    static final int pageSize = 100;
+    static final int pageSize = 10;
     String category;
     boolean END_OF_STREAM;
     boolean REQUESTING;

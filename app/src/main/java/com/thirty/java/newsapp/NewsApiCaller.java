@@ -9,8 +9,6 @@ import java.io.*;
 import java.util.*;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
