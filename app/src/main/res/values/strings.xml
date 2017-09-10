@@ -35,4 +35,5 @@
     <string name="wechat">微信</string>
     <string name="choose_share">选择分享</string>
     <string name="not_found">找不到该分享应用组件</string>
+    <string name="cache_cleaned">已清除缓存</string>
 </resources>

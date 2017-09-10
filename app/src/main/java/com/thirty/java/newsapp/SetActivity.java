@@ -2,6 +2,7 @@ package com.thirty.java.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -80,6 +81,13 @@ public class SetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseApi.clearAll();
+                Vibrator vibrator =  (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                long[] pattern = {0, 30};
+                vibrator.vibrate(pattern, -1);
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.cache_cleaned), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
         });
 
