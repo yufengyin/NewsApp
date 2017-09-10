@@ -2,6 +2,7 @@ package com.thirty.java.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
@@ -46,6 +47,16 @@ public class NewsActivity extends AppCompatActivity {
         }
     };
 
+    private Handler PicHander = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            if (message.what == StorePictureRunnable.SUCCESS){
+                String ID = message.getData().getString("newsID");
+                mImageView.setImageBitmap(PictureApi.getBitmapFromID(ID));
+            }
+        }
+    };
+
     public void onReceiveDetailedNews(DetailedNews detailedNews){
         mDetailedNews = detailedNews;
         mNewsTitle.setText(detailedNews.newsTitle);
@@ -53,10 +64,16 @@ public class NewsActivity extends AppCompatActivity {
         mNewsTime.setText(detailedNews.newsTime);
         mNewsContent.setText(detailedNews.newsContent);
         //fsy todo
-        boolean no_image_mode = getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("no_image_mode", false);
-        if(!no_image_mode){
-            //image
-            //mImageView.setImageBitmap();
+        if (PictureApi.hasLocalPicture(detailedNews.newsID)){
+            mImageView.setImageBitmap(PictureApi.getBitmapFromID(detailedNews.newsID));
+        }
+        else {
+            boolean no_image_mode = getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("no_image_mode", false);
+            if (!no_image_mode) {
+                PictureApi.requestDownloadPictureToCache(PicHander, detailedNews);
+                //image
+                //mImageView.setImageBitmap();
+            }
         }
         MyApplication.volumnOfCategory[MyApplication.map.get(mDetailedNews.newsClassTag)] += MyApplication.readDelta;
 
