@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class NewsActivity extends AppCompatActivity {
     private String mNewsID;
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
     private Button mBackButton, mReadButton, mCollectButton;
+    private ImageView mImageView;
     private SpeechSynthesizer mTts = null;
     private boolean ifCollect;
 
@@ -49,6 +52,12 @@ public class NewsActivity extends AppCompatActivity {
         mNewsAuthor.setText(detailedNews.newsAuthor);
         mNewsTime.setText(detailedNews.newsTime);
         mNewsContent.setText(detailedNews.newsContent);
+        //fsy todo
+        boolean no_image_mode = getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("no_image_mode", false);
+        if(!no_image_mode){
+            //image
+            //mImageView.setImageBitmap();
+        }
         MyApplication.volumnOfCategory[MyApplication.map.get(mDetailedNews.newsClassTag)] += MyApplication.readDelta;
 
         DatabaseApi.insertDetailedNewsIntoCache(detailedNews);
@@ -89,6 +98,7 @@ public class NewsActivity extends AppCompatActivity {
         mNewsAuthor = (TextView) findViewById(R.id.news_author);
         mNewsTime = (TextView) findViewById(R.id.news_time);
         mNewsContent = (TextView) findViewById(R.id.news_text);
+        mImageView = (ImageView) findViewById(R.id.news_image);
 
         mNewsID = (String) getIntent().getStringExtra("NewsID");
 
