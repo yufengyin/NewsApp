@@ -34,6 +34,26 @@ public class PictureApi
     //                2. StorePictureRunnable.DOWNLOAD_FAILED  ->  download failed
     //                3. StorePictureRunnable.SUCCESS  ->  getString("filename") return the filename
 
+    public static void clearCachePicture()
+    {
+        File[] files = getPictureCacheDirectory().listFiles();
+        if (files != null)
+        for (File file : files)
+        {
+            if (file.isFile())
+                file.delete();
+        }
+    }
+    public static void clearCollectionPicture()
+    {
+        File[] files = getPictureCollectionDirectory().listFiles();
+        if (files != null)
+            for (File file : files)
+            {
+                if (file.isFile())
+                    file.delete();
+            }
+    }
     public static boolean hasLocalPicture(String newsID)
     {
         String temp = tryToFindLocalPicture(newsID);
