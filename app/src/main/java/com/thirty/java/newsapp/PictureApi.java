@@ -12,6 +12,7 @@ import android.util.Log;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -33,7 +34,16 @@ public class PictureApi
     //                2. StorePictureRunnable.DOWNLOAD_FAILED  ->  download failed
     //                3. StorePictureRunnable.SUCCESS  ->  getString("filename") return the filename
 
-    static public String tryToFindLocalPicture(String newsID)
+    public static Bitmap getLoacalBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static String tryToFindLocalPicture(String newsID)
     {
         String collectionStr = getPictureNameFromCollection(newsID);
         File collectionFile = new File(collectionStr);
@@ -43,24 +53,24 @@ public class PictureApi
         if (cacheFile.exists()) return cacheStr;
         return null;
     }
-    static public void storePictureFromUrlToCollection(String urlString, String filename) throws Exception // called by a sub thread
+    public static void storePictureFromUrlToCollection(String urlString, String filename) throws Exception // called by a sub thread
     {
         Bitmap bitmap = getPictureByUrl(urlString);
         storePictureToCollection(bitmap, filename);
     }
-    static public void storePictureFromUrlToCache(String urlString, String filename) throws Exception // called by a sub thread
+    public static void storePictureFromUrlToCache(String urlString, String filename) throws Exception // called by a sub thread
     {
         Bitmap bitmap = getPictureByUrl(urlString);
         storePictureToCache(bitmap, filename);
     }
 
-    static public void requestDownloadPictureToCache(Handler handler, DetailedNews detailedNews)
+    public static void requestDownloadPictureToCache(Handler handler, DetailedNews detailedNews)
     {
         Runnable runnable = new StorePictureRunnable(handler, detailedNews, StorePictureRunnable.TO_CACHE);
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    static public void requestDownloadPictureToCollection(Handler handler, DetailedNews detailedNews)
+    public static void requestDownloadPictureToCollection(Handler handler, DetailedNews detailedNews)
     {
         Runnable runnable = new StorePictureRunnable(handler, detailedNews, StorePictureRunnable.TO_COLLECTION);
         Thread thread = new Thread(runnable);
@@ -175,7 +185,7 @@ public class PictureApi
         return appCacheDir;
     }
 
-    static private Bitmap getPictureByUrl(String urlString) throws Exception
+    private static Bitmap getPictureByUrl(String urlString) throws Exception
     {
         Log.i("zyj", "getPictureByUrl(): " + urlString);
         URL url = new URL(urlString);

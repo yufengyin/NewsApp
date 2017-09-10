@@ -19,12 +19,12 @@ import android.util.Log;
 
 public class StorePictureRunnable implements Runnable
 {
-    static public final int NO_PICTURE = 111;
-    static public final int DOWNLOAD_FAILED = 222;
-    static public final int SUCCESS = 333;
+    public static final int NO_PICTURE = 111;
+    public static final int DOWNLOAD_FAILED = 222;
+    public static final int SUCCESS = 333;
 
-    static public final int TO_CACHE = 0;
-    static public final int TO_COLLECTION = 1;
+    public static final int TO_CACHE = 0;
+    public static final int TO_COLLECTION = 1;
 
     public StorePictureRunnable(Handler handler, DetailedNews detailedNews, int DIR)
     {
