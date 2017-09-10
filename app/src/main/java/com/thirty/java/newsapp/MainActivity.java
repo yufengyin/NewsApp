@@ -3,11 +3,13 @@ package com.thirty.java.newsapp;
 import android.app.Application;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -65,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
+
+        //夜间模式刷新
+        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
+        if (night_mode)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        getDelegate().applyDayNight();
 
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
@@ -142,13 +152,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
-
         zyjDebug();
         initial = true;
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        //night_mode initiate
+        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
+        if (night_mode)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        getDelegate().applyDayNight();
 
         MyFragmentPagerAdapter.initiateInterestDataSet();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
