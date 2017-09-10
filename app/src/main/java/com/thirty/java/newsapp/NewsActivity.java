@@ -2,6 +2,10 @@ package com.thirty.java.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
@@ -23,6 +27,10 @@ import com.iflytek.cloud.*;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by fansy on 2017/9/5.
@@ -32,7 +40,7 @@ public class NewsActivity extends AppCompatActivity {
     private DetailedNews mDetailedNews = new DetailedNews();
     private String mNewsID;
     private TextView mNewsTitle, mNewsAuthor, mNewsTime, mNewsContent;
-    private Button mBackButton, mReadButton, mCollectButton;
+    private Button mBackButton, mReadButton, mCollectButton, mShareButton;
     private ImageView mImageView;
     private SpeechSynthesizer mTts = null;
     private boolean ifCollect;
@@ -164,6 +172,30 @@ public class NewsActivity extends AppCompatActivity {
                 else{
                     mCollectButton.setText("收藏");
                 }
+            }
+        });
+
+        //分享新闻
+        mShareButton = (Button) findViewById(R.id.share_button);
+        mShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent share_intent = new Intent();
+                share_intent.setAction(Intent.ACTION_SEND);//设置分享行为
+                share_intent.setType("text/plain");//设置分享内容的类型
+
+                if(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID) != null){
+                    File f = new File(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID));
+                    share_intent.setType("image/jpg");
+                    Uri u = Uri.fromFile(f);
+                    share_intent.putExtra(Intent.EXTRA_STREAM, u);
+                }
+                share_intent.putExtra(Intent.EXTRA_SUBJECT, mDetailedNews.newsTitle);//添加分享内容标题
+                share_intent.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro + "\n" + mDetailedNews.newsURL);//添加分享内容
+                share_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //创建分享的Dialog
+                share_intent = Intent.createChooser(share_intent, getResources().getString(R.string.share));
+                startActivity(share_intent);
             }
         });
     }
