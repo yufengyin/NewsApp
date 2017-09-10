@@ -24,7 +24,7 @@ import android.widget.Toast;
  */
 
 public class SetActivity extends AppCompatActivity {
-    private Button mIndexButton, mCollectButton, mInterestButton, mFilterButton;
+    private Button mIndexButton, mCollectButton, mInterestButton, mFilterButton, mCleanButton;
     private Switch mNightSwitch, mNoImageSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class SetActivity extends AppCompatActivity {
         mCollectButton = (Button) findViewById(R.id.collect_button);
         mInterestButton = (Button) findViewById(R.id.my_interest);
         mFilterButton = (Button) findViewById(R.id.my_filter);
+        mCleanButton = (Button) findViewById(R.id.clean_cache);
         mNightSwitch = (Switch) findViewById(R.id.night_mode);
         mNoImageSwitch = (Switch) findViewById(R.id.no_image_mode);
 
@@ -71,6 +72,14 @@ public class SetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SetActivity.this, FilterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //清除缓存
+        mCleanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseApi.clearAll();
             }
         });
 

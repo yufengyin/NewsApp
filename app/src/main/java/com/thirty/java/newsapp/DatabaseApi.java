@@ -13,6 +13,16 @@ import java.util.List;
 
 public class DatabaseApi
 {
+    public static void clearAll()
+    {
+        PictureApi.clearCachePicture();
+        PictureApi.clearCollectionPicture();
+        DatabaseApi.clearCache();
+        DatabaseApi.clearCollection();
+    }
+
+
+
     public static void clearCache()
     {
         try

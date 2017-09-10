@@ -34,7 +34,42 @@ public class PictureApi
     //                2. StorePictureRunnable.DOWNLOAD_FAILED  ->  download failed
     //                3. StorePictureRunnable.SUCCESS  ->  getString("filename") return the filename
 
-    public static Bitmap getLoacalBitmap(String url) {
+    public static void clearCachePicture()
+    {
+        File[] files = getPictureCacheDirectory().listFiles();
+        if (files != null)
+        for (File file : files)
+        {
+            if (file.isFile())
+                file.delete();
+        }
+    }
+    public static void clearCollectionPicture()
+    {
+        File[] files = getPictureCollectionDirectory().listFiles();
+        if (files != null)
+            for (File file : files)
+            {
+                if (file.isFile())
+                    file.delete();
+            }
+    }
+    public static boolean hasLocalPicture(String newsID)
+    {
+        String temp = tryToFindLocalPicture(newsID);
+        if (temp == null)
+            return false;
+        return true;
+    }
+    public static Bitmap getBitmapFromID(String newsID)
+    {
+        String temp = tryToFindLocalPicture(newsID);
+        return getLocalBitmap(temp);
+    }
+
+    // -*-*-*-*-*-*-
+
+    public static Bitmap getLocalBitmap(String url) {
         try {
             FileInputStream fis = new FileInputStream(url);
             return BitmapFactory.decodeStream(fis);
@@ -76,8 +111,6 @@ public class PictureApi
         Thread thread = new Thread(runnable);
         thread.start();
     }
-
-
     public static String getPictureNameFromCache(String newsID)
     {
         String tempString = getPictureCacheDirectory().toString() + "/" + newsID + ".jpg";
