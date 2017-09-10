@@ -7,7 +7,6 @@
     <string name="my_interest">我的关注</string>
     <string name="my_filter">我的屏蔽</string>
     <string name="my_history">最近浏览</string>
-    <string name="theme_color">主题选择</string>
     <string name="night_mode">夜间模式</string>
     <string name="no_image_mode">无图模式</string>
     <string name="clean_cache">清除缓存</string>
@@ -31,6 +30,4 @@
     <string name="cate12">娱乐</string>
     <string name="add">添加</string>
     <string name="delete">删除</string>
-    <string name="blue">天空蓝</string>
-    <string name="green">原谅绿</string>
 </resources>

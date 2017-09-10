@@ -42,17 +42,6 @@
                 android:paddingLeft="8dp" />
 
             <Button
-                android:id="@+id/theme_color"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                android:text="@string/theme_color"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="start|center_vertical"
-                android:paddingLeft="8dp"/>
-
-            <Button
                 android:id="@+id/clean_cache"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
