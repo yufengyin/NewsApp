@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.i("yyf", "onStart");
 
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             //没有改变而且已经初始化则不刷新
             return;
         }
-        Log.i("yyf", "onStart initial");
         //初始化新闻数据
         myFragmentPagerAdapter.myInterestDataset = tempList.toArray(new String[0]);
         myFragmentPagerAdapter.initiateNewsData();
@@ -146,11 +144,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("yyf", "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
         zyjDebug();
         initial = true;
+
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
@@ -202,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
                     v.requestFocus();
             }
         });
+
+        //夜间模式初始化
+        boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
+        if (night_mode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            getDelegate().applyDayNight();
+        }
+        else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().applyDayNight();
+        }
 
         //讯飞初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59b0ae8e");
