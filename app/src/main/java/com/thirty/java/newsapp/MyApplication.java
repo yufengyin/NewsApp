@@ -57,6 +57,6 @@ public class MyApplication extends Application {
         // zyj database initialize
 
         Arrays.fill(selected, true);
-
+        selected = PreferenceStorage.loadPreference();
     }
 }

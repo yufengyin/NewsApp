@@ -7,9 +7,6 @@ package com.thirty.java.newsapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-/**
- * Created by zyj on 2017/9/9.
- */
 
 public class StorePictureRunnable implements Runnable
 {

@@ -112,6 +112,7 @@ public class InterestSetActivity extends AppCompatActivity {
                 selected[12] = mCheckBox.isChecked();
 
                 MyApplication.selected = selected;
+                PreferenceStorage.storePreference(selected);
                 finish();
             }
         });

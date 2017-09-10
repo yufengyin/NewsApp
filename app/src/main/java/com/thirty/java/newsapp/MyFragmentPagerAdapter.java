@@ -133,6 +133,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         }
 
         for (int i = 0; i < MyApplication.interestDateSet.length; ++i) {
+            if (myNewsdataset[i] == null) {
+                myNewsdataset[i] = new ArrayList<>();
+            }
+        }
+
+        for (int i = 0; i < MyApplication.interestDateSet.length; ++i) {
             if (MyApplication.selected[i] && myNewsdataset[i] == null) {
                 myNewsdataset[i] = new ArrayList<>();
                 requestForNews(i);
