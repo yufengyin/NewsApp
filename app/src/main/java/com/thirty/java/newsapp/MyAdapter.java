@@ -1,6 +1,8 @@
 package com.thirty.java.newsapp;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +57,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         holder.mNewsText.setText(mDataset[position].newsIntro);
         boolean isRead = DatabaseApi.isRead(mDataset[position].newsID);
         if(!isRead){
-            holder.mNewTitle.setTextColor(Color.BLACK);
-            holder.mNewsText.setTextColor(Color.BLACK);
+            boolean night_mode = MyApplication.night_mode;
+            if (night_mode){
+                holder.mNewTitle.setTextColor(Color.argb(255, 185, 185, 185));
+                holder.mNewsText.setTextColor(Color.argb(255, 185, 185, 185));
+            }
+            else {
+                holder.mNewTitle.setTextColor(Color.BLACK);
+                holder.mNewsText.setTextColor(Color.BLACK);
+            }
         }
         else{
             holder.mNewTitle.setTextColor(Color.GRAY);

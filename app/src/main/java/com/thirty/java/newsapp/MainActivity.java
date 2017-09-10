@@ -1,6 +1,7 @@
 package com.thirty.java.newsapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -202,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //夜间模式初始化
-        boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
+        boolean night_mode = getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("night_mode", false);
+        MyApplication.night_mode = night_mode;
         if (night_mode){
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().applyDayNight();

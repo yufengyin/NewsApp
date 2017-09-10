@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        card_view:cardBackgroundColor="@color/cardview_light_background">
+        card_view:cardBackgroundColor="@color/white">
 
         <RelativeLayout
             android:id="@+id/linear_layout"
@@ -30,6 +30,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:background="@color/white"
+                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
                 android:text="@string/delete"/>
         </RelativeLayout>

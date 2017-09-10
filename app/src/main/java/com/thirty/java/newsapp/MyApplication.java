@@ -33,6 +33,7 @@ public class MyApplication extends Application {
     static public double volumnOfCategory[] = new double[interestDateSet.length];
     static int focusPage = 0;
     static double readDelta = 1.0;
+    static boolean night_mode;
     public GetLatestNewsStream myNewsStream;
 
     // zyj database initialize

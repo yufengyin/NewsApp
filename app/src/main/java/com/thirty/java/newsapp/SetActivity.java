@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
@@ -75,17 +76,17 @@ public class SetActivity extends AppCompatActivity {
 
 
         //夜间模式
-        mNightSwitch.setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false));
+        mNightSwitch.setChecked(getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("night_mode", false));
         mNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     //night
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", true).apply();
+                    getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("night_mode", true).apply();
                 }
                 else{
                     //day
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", false).apply();
+                    getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("night_mode", false).apply();
                 }
             }
         });
