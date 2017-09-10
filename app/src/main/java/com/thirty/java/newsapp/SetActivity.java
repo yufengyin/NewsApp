@@ -1,9 +1,11 @@
 package com.thirty.java.newsapp;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Gravity;
@@ -71,23 +73,25 @@ public class SetActivity extends AppCompatActivity {
             }
         });
 
+
         //夜间模式
+        mNightSwitch.setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false));
         mNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    Log.i("yyf", "On");
                     //night
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", true).apply();
                 }
                 else{
-                    Log.i("yyf", "Off");
                     //day
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", false).apply();
                 }
             }
         });
 
         //无图模式
-        mNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mNoImageSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
