@@ -199,46 +199,56 @@ public class NewsActivity extends AppCompatActivity {
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                // 查询所有可以分享的Activity
-                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-                if (!resInfo.isEmpty()) {
-                    List<Intent> targetedShareIntents = new ArrayList<Intent>();
-                    for (ResolveInfo info : resInfo) {
-                        Intent targeted = new Intent(Intent.ACTION_SEND);
-                        targeted.setType("*/*");
-                        ActivityInfo activityInfo = info.activityInfo;
+                List<Intent> targetedShareIntents = new ArrayList<Intent>();
+                if(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID) != null){
+                    //微信朋友圈
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI"));
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.setType("image/*");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putExtra("Kdescription", mDetailedNews.toBriefNews().newsIntro
+                            + "\n" + mDetailedNews.newsURL);
+                    File f = new File(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID));
+                    Uri uri = Uri.fromFile(f);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
 
-                        if(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID) != null){
-                            File f = new File(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID));
-                            Uri mUri = Uri.fromFile(f);
-                            targeted.putExtra(Intent.EXTRA_STREAM, mUri);
-                        }
-                        targeted.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro + "\n" + mDetailedNews.newsURL);
-
-                        targeted.setPackage(activityInfo.packageName);
-                        targeted.setClassName(activityInfo.packageName, info.activityInfo.name);
-                        PackageManager pm = getApplication().getPackageManager();
-                        if (info.activityInfo.applicationInfo.loadLabel(pm).toString().equals(getResources().getString(R.string.wechat))
-                                || info.activityInfo.applicationInfo.loadLabel(pm).toString().equals(getResources().getString(R.string.weibo))) {
-                            targetedShareIntents.add(targeted);
-                        }
-                    }
-                    // 选择分享时的标题
-                    Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), getResources().getString(R.string.choose_share));
-                    if (chooserIntent == null) {
-                        return;
-                    }
-                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
-                    try {
-                        startActivity(chooserIntent);
-                    } catch (android.content.ActivityNotFoundException ex) {
-
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.not_found), Toast.LENGTH_SHORT).show();
-                    }
+                    targetedShareIntents.add(intent);
                 }
+
+                //QQ好友
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.JumpActivity"));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/*");
+                intent.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro
+                        + "\n" + mDetailedNews.newsURL);
+
+                targetedShareIntents.add(intent);
+
+                //微信好友
+                intent = new Intent();
+                intent.setComponent(new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI"));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/*");
+                intent.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro
+                        + "\n" + mDetailedNews.newsURL);
+
+                targetedShareIntents.add(intent);
+
+                //新浪微博
+                intent = new Intent();
+                intent.setComponent(new ComponentName("com.sina.weibo", "com.sina.weibo.EditActivity"));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/*");
+                intent.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro
+                        + "\n" + mDetailedNews.newsURL);
+
+                targetedShareIntents.add(intent);
+
+                Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), getResources().getString(R.string.choose_share));
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
+                startActivity(chooserIntent);
             }
         });
     }
