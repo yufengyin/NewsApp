@@ -2,8 +2,6 @@ package com.thirty.java.newsapp;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -38,18 +36,16 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
-        Log.i("back", "onCreate()");
         try {
             TableUtils.createTable(connectionSource, NewsBean.class);
             TableUtils.createTable(connectionSource, CollectionNewsBean.class);
         } catch (SQLException e) {
-            Log.i("back", "onCreate(): " + e.toString());
+            e.printStackTrace();
         }
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion,
                           int newVersion) {
-        Log.i("back", "onUpgrade()");
         try
         {
             TableUtils.dropTable(connectionSource, NewsBean.class, true);
@@ -57,11 +53,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             onCreate(sqLiteDatabase, connectionSource);
         } catch (SQLException e)
         {
-            Log.i("back", "onUpgrade(): " + e.toString());
+            e.printStackTrace();
         }
     }
     public synchronized Dao<NewsBean, String> getCacheDao() throws SQLException {
-        Log.i("back", "getCacheDao()");
         if (cacheDao == null)
         {
             cacheDao = super.getDao(NewsBean.class);
@@ -69,7 +64,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return cacheDao;
     }
     public synchronized Dao<CollectionNewsBean, String> getCollectionDao() throws SQLException {
-        Log.i("back", "getCollectionDao()");
         if (collectionDao == null)
         {
             collectionDao = super.getDao(CollectionNewsBean.class);
@@ -78,7 +72,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
     @Override
     public void close() {
-        Log.i("back", "close()");
         super.close();
         cacheDao = null;
     }

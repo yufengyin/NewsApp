@@ -2,11 +2,9 @@ package com.thirty.java.newsapp;
 
 import android.os.Parcelable;
 import android.os.Parcel;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

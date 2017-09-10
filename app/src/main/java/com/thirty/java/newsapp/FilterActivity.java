@@ -7,7 +7,6 @@ package com.thirty.java.newsapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View;
@@ -46,7 +45,6 @@ public class FilterActivity extends AppCompatActivity {
                     String temp = mEditText.getText().toString();
                     if (!MyApplication.filterWords.contains(temp)) {
                         mFilterAdapter.mFilterDataSet.add(temp);
-                        Log.i("yyf", mFilterAdapter.mFilterDataSet.toString());
                         mFilterAdapter.notifyDataSetChanged();
                     }
                     mEditText.setText("");

@@ -1,8 +1,5 @@
 package com.thirty.java.newsapp;
 
-import android.content.Context;
-import android.util.Log;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +25,14 @@ public class DatabaseApi
         try
         { DBHelper.getHelper().clearCacheTable(); }
         catch (SQLException e)
-        { Log.i("back", e.toString()); }
+        { e.printStackTrace(); }
     }
     public static void clearCollection()
     {
         try
         { DBHelper.getHelper().clearCollectionTable(); }
         catch (SQLException e)
-        { Log.i("back", e.toString()); }
+        { e.printStackTrace(); }
     }
     public static void insertDetailedNewsIntoCache(DetailedNews detailedNews) // insert if not exist (else print Error)
     { new NewsDao().insert(new NewsBean(detailedNews)); }

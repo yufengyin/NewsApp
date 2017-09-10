@@ -5,15 +5,9 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import android.util.Pair;
 import java.util.List;
 

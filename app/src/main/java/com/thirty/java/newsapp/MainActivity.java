@@ -1,37 +1,25 @@
 package com.thirty.java.newsapp;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.iflytek.cloud.*;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View.OnFocusChangeListener;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Button mCollectButton, mSetButton;

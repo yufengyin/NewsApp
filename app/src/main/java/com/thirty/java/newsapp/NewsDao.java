@@ -1,8 +1,5 @@
 package com.thirty.java.newsapp;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -24,32 +21,32 @@ public class NewsDao
             dbHelper = DBHelper.getHelper();
             dao = dbHelper.getDao(NewsBean.class);
         } catch (SQLException e)
-        { Log.i("back", "NewsDao(): " + e.toString()); }
+        { e.printStackTrace(); }
     }
     public void insert(NewsBean newsBean) // insert if not exist (will print Error if exists)
     {
         try { dao.create(newsBean); } // see in 1.createIfNotExists 2.createOrUpdate
         catch (SQLException e)
-        { Log.i("back", "add(): " + e.toString()); }
+        { e.printStackTrace(); }
     }
     public void deleteById(String newsID) // delete if exists
     {
         try { dao.deleteById(newsID); }
         catch (SQLException e)
-        { Log.i("back", "delete(): " + e.toString()); }
+        { e.printStackTrace(); }
     }
     public void update(NewsBean news) // update if exists
     {
         try { dao.update(news); }
         catch (SQLException e)
-        { Log.i("back", "update(): " + e.toString()); }
+        { e.printStackTrace(); }
     }
     public NewsBean queryById(String newsID) // if not exists, return null
     {
         NewsBean news = null;
         try { news = dao.queryForId(newsID); }
         catch (SQLException e)
-        { Log.i("back", "quaryForId(): " + e.toString()); }
+        { e.printStackTrace(); }
         return news;
     }
     public List<NewsBean> queryForAll()
@@ -57,7 +54,7 @@ public class NewsDao
         List<NewsBean> newsList = new ArrayList<NewsBean>();
         try { newsList = dao.queryForAll(); }
         catch (SQLException e)
-        { Log.i("back", "queryForAll(): " + e.toString()); }
+        { e.printStackTrace(); }
         return newsList;
     }
 }

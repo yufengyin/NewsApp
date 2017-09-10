@@ -3,8 +3,6 @@ package com.thirty.java.newsapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-
 /**
  * Created by zyj on 2017/9/5.
  */
@@ -36,7 +34,7 @@ public class GetLatestNewsRunnable implements Runnable
             handler.sendMessage(message);
         }
         catch (Exception e)
-        { Log.i("back", "failure in latestNewsRunnable(): " + e.toString()); }
+        { e.printStackTrace(); }
     }
     Handler handler;
     int pageNo;

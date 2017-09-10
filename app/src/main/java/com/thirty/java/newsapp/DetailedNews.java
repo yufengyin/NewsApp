@@ -3,10 +3,6 @@ package com.thirty.java.newsapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by zyj on 2017/9/6.
  */
