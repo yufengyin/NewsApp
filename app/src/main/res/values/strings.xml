@@ -30,4 +30,9 @@
     <string name="cate12">娱乐</string>
     <string name="add">添加</string>
     <string name="delete">删除</string>
+    <string name="collected">已收藏</string>
+    <string name="weibo">微博</string>
+    <string name="wechat">微信</string>
+    <string name="choose_share">选择分享</string>
+    <string name="not_found">找不到该分享应用组件</string>
 </resources>

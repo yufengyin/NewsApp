@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -173,10 +175,10 @@ public class NewsActivity extends AppCompatActivity {
         mCollectButton = (Button) findViewById(R.id.collect_button);
         ifCollect = DatabaseApi.isCollected(mNewsID);
         if(ifCollect){
-            mCollectButton.setText("已收藏");
+            mCollectButton.setText(getResources().getString(R.string.collected));
         }
         else{
-            mCollectButton.setText("收藏");
+            mCollectButton.setText(getResources().getString(R.string.collect_name));
         }
         mCollectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,10 +186,10 @@ public class NewsActivity extends AppCompatActivity {
                 changeCollectFeature(mNewsID);
                 ifCollect = !ifCollect;
                 if(ifCollect){
-                    mCollectButton.setText("已收藏");
+                    mCollectButton.setText(getResources().getString(R.string.collected));
                 }
                 else{
-                    mCollectButton.setText("收藏");
+                    mCollectButton.setText(getResources().getString(R.string.collect_name));
                 }
             }
         });
@@ -197,22 +199,46 @@ public class NewsActivity extends AppCompatActivity {
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent share_intent = new Intent();
-                share_intent.setAction(Intent.ACTION_SEND);//设置分享行为
-                share_intent.setType("text/plain");//设置分享内容的类型
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                // 查询所有可以分享的Activity
+                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+                if (!resInfo.isEmpty()) {
+                    List<Intent> targetedShareIntents = new ArrayList<Intent>();
+                    for (ResolveInfo info : resInfo) {
+                        Intent targeted = new Intent(Intent.ACTION_SEND);
+                        targeted.setType("*/*");
+                        ActivityInfo activityInfo = info.activityInfo;
 
-                if(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID) != null){
-                    File f = new File(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID));
-                    share_intent.setType("image/jpg");
-                    Uri u = Uri.fromFile(f);
-                    share_intent.putExtra(Intent.EXTRA_STREAM, u);
+                        if(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID) != null){
+                            File f = new File(PictureApi.tryToFindLocalPicture(mDetailedNews.newsID));
+                            Uri mUri = Uri.fromFile(f);
+                            targeted.putExtra(Intent.EXTRA_STREAM, mUri);
+                        }
+                        targeted.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro + "\n" + mDetailedNews.newsURL);
+
+                        targeted.setPackage(activityInfo.packageName);
+                        targeted.setClassName(activityInfo.packageName, info.activityInfo.name);
+                        PackageManager pm = getApplication().getPackageManager();
+                        if (info.activityInfo.applicationInfo.loadLabel(pm).toString().equals(getResources().getString(R.string.wechat))
+                                || info.activityInfo.applicationInfo.loadLabel(pm).toString().equals(getResources().getString(R.string.weibo))) {
+                            targetedShareIntents.add(targeted);
+                        }
+                    }
+                    // 选择分享时的标题
+                    Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), getResources().getString(R.string.choose_share));
+                    if (chooserIntent == null) {
+                        return;
+                    }
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
+                    try {
+                        startActivity(chooserIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.not_found), Toast.LENGTH_SHORT).show();
+                    }
                 }
-                share_intent.putExtra(Intent.EXTRA_SUBJECT, mDetailedNews.newsTitle);//添加分享内容标题
-                share_intent.putExtra(Intent.EXTRA_TEXT, mDetailedNews.toBriefNews().newsIntro + "\n" + mDetailedNews.newsURL);//添加分享内容
-                share_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //创建分享的Dialog
-                share_intent = Intent.createChooser(share_intent, getResources().getString(R.string.share));
-                startActivity(share_intent);
             }
         });
     }
