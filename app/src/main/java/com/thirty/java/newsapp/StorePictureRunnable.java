@@ -52,10 +52,12 @@ public class StorePictureRunnable implements Runnable
                 if (this.DIR == TO_CACHE) {
                     PictureApi.storePictureFromUrlToCache(urlString, newsID + ".jpg");
                     bundle.putString("filename", PictureApi.getPictureNameFromCache(newsID));
+                    bundle.putString("newsID", newsID);
                 }
                 else {
                     PictureApi.storePictureFromUrlToCollection(urlString, newsID + ".jpg");
                     bundle.putString("filename", PictureApi.getPictureNameFromCollection(newsID));
+                    bundle.putString("newsID", newsID);
                 }
                 message.what = SUCCESS;
             } catch (Exception e) {
