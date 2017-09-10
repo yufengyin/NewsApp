@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,9 +71,18 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        //刷新小数组
+        for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
+            myFragmentPagerAdapter.fragments.get(i).mFragmentAdapter.mDataset = BriefNews.filter(Arrays.asList(myFragmentPagerAdapter.fragments.get(i).mFragmentAdapter.mDataset), MyApplication.filterWords).toArray(new BriefNews[0]);
+
+        //刷新大数组
+        for (int i = 0; i < MyApplication.interestDateSet.length; ++i)
+            myFragmentPagerAdapter.myNewsdataset[i] = new ArrayList<BriefNews>(BriefNews.filter(myFragmentPagerAdapter.myNewsdataset[i], MyApplication.filterWords));
+
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
             myFragmentPagerAdapter.fragments.get(i).mFragmentAdapter.notifyDataSetChanged();
+        myFragmentPagerAdapter.notifyDataSetChanged();
 
         ArrayList<String> tempList = new ArrayList<String>();
         for(int i = 0; i < MyApplication.selected.length; i++){
