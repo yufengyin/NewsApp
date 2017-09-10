@@ -82,10 +82,14 @@ public class SetActivity extends AppCompatActivity {
                 if(isChecked){
                     //night
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", true).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
                 }
                 else{
                     //day
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("night_mode", false).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
                 }
             }
         });

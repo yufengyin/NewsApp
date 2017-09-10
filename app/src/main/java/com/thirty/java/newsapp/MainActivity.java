@@ -21,7 +21,9 @@ import android.view.MenuItem;
 import com.iflytek.cloud.*;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,14 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        //夜间模式刷新
-        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
-        if (night_mode)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
+        Log.i("yyf", "onStart");
 
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
@@ -102,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             //没有改变而且已经初始化则不刷新
             return;
         }
+        Log.i("yyf", "onStart initial");
         //初始化新闻数据
         myFragmentPagerAdapter.myInterestDataset = tempList.toArray(new String[0]);
         myFragmentPagerAdapter.initiateNewsData();
@@ -150,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("yyf", "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
         zyjDebug();
@@ -158,14 +155,6 @@ public class MainActivity extends AppCompatActivity {
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        //night_mode initiate
-        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
-        if (night_mode)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
 
         MyFragmentPagerAdapter.initiateInterestDataSet();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
