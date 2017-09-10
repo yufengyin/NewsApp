@@ -92,16 +92,17 @@ public class SetActivity extends AppCompatActivity {
         });
 
         //无图模式
+        mNoImageSwitch.setChecked(getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("no_image_mode", false));
         mNoImageSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    Log.i("yyf", "On");
                     //no image
+                    getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("no_image_mode", true).apply();
                 }
                 else{
-                    Log.i("yyf", "Off");
                     //image
+                    getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("no_image_mode", false).apply();
                 }
             }
         });

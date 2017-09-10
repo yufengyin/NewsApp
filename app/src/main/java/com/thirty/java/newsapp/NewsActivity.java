@@ -1,5 +1,6 @@
 package com.thirty.java.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -52,8 +53,11 @@ public class NewsActivity extends AppCompatActivity {
         mNewsTime.setText(detailedNews.newsTime);
         mNewsContent.setText(detailedNews.newsContent);
         //fsy todo
-        //mImageView.setImageBitmap();
-
+        boolean no_image_mode = getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("no_image_mode", false);
+        if(!no_image_mode){
+            //image
+            //mImageView.setImageBitmap();
+        }
         MyApplication.volumnOfCategory[MyApplication.map.get(mDetailedNews.newsClassTag)] += MyApplication.readDelta;
 
         DatabaseApi.insertDetailedNewsIntoCache(detailedNews);
