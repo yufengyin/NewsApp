@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 
 public class BriefNews implements Parcelable{
-    final static Pattern pattern = Pattern.compile("http://.*?\\.jpe?g");
+    private static final Pattern pattern = Pattern.compile("http://.*?\\.jpe?g");
     public String newsClassTag;
     public String newsAuthor;
     public String newsID;
@@ -111,7 +111,7 @@ public class BriefNews implements Parcelable{
         return true;
     }
 
-    static public List<BriefNews> filter(List<BriefNews> briefNewsList, List<String> keywordList)
+    public static List<BriefNews> filter(List<BriefNews> briefNewsList, List<String> keywordList)
     {
         List<BriefNews> resultList = new ArrayList<BriefNews>();
         for (int i = 0; i < briefNewsList.size(); i++)

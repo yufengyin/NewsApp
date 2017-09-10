@@ -21,7 +21,9 @@ import android.view.MenuItem;
 import com.iflytek.cloud.*;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,14 +69,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        //夜间模式刷新
-        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
-        if (night_mode)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
 
         //刷新页面
         for (int i = 0; i < myFragmentPagerAdapter.fragments.size(); ++i)
@@ -154,18 +148,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.index);
         zyjDebug();
         initial = true;
+
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
         tabs_LinearLayout = (LinearLayout) findViewById(R.id.tabs_LinearLayout);
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        //night_mode initiate
-        Boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
-        if (night_mode)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().applyDayNight();
 
         MyFragmentPagerAdapter.initiateInterestDataSet();
         for (int i = 0; i < MyFragmentPagerAdapter.myInterestDataset.length; i++) {
@@ -213,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
                     v.requestFocus();
             }
         });
+
+        //夜间模式初始化
+        boolean night_mode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night_mode", false);
+        if (night_mode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            getDelegate().applyDayNight();
+        }
+        else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().applyDayNight();
+        }
 
         //讯飞初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59b0ae8e");
@@ -277,6 +275,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+// -*-*- zyj debug code below -*-*-
+
     public void zyjDebug(){
+//        GetDetailedNewsRunnable getDetailedNewsRunnable = new GetDetailedNewsRunnable(debugHandler1, "201601220712e3081db0bde94949a0e0b1ccd49f1343");
+//        Thread thread = new Thread(getDetailedNewsRunnable);
+//        thread.start();
     }
+
+//    private Handler debugHandler1 = new Handler() {
+//        @Override
+//        public void handleMessage(Message message) {
+//            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
+//            Log.i("zyj", detailedNews.newsTitle);
+//            PictureApi.requestDownloadPictureToCache(debugHandler2, detailedNews);
+//        }
+//    };
+//    private Handler debugHandler2 = new Handler() {
+//        @Override
+//        public void handleMessage(Message message) {
+//            if (message.what == StorePictureRunnable.SUCCESS)
+//            {
+//                Log.i("zyj", message.getData().getString("filename"));
+//            }
+//            String temp = PictureApi.tryToFindLocalPicture("201601220712e3081db0bde94949a0e0b1ccd49f1343");
+//            if (temp == null)
+//                Log.i("zyj", "picture not found");
+//            else
+//                Log.i("zyj", temp);
+//        }
+//    };
 }
