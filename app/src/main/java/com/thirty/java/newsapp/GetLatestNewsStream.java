@@ -75,6 +75,7 @@ public class GetLatestNewsStream implements NewsStream
             message.what = NO_NEWS;
             paramHandler.sendMessage(message);
             REQUESTING = false; // end
+            END_OF_STREAM = false;
         }
         else
         {
