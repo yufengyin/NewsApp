@@ -278,32 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
 // -*-*- zyj debug code below -*-*-
 
-    public void zyjDebug(){
-//        GetDetailedNewsRunnable getDetailedNewsRunnable = new GetDetailedNewsRunnable(debugHandler1, "201601220712e3081db0bde94949a0e0b1ccd49f1343");
-//        Thread thread = new Thread(getDetailedNewsRunnable);
-//        thread.start();
+    public void zyjDebug() {
     }
-
-//    private Handler debugHandler1 = new Handler() {
-//        @Override
-//        public void handleMessage(Message message) {
-//            DetailedNews detailedNews = (DetailedNews)message.getData().getParcelable("detailedNews");
-//            Log.i("zyj", detailedNews.newsTitle);
-//            PictureApi.requestDownloadPictureToCache(debugHandler2, detailedNews);
-//        }
-//    };
-//    private Handler debugHandler2 = new Handler() {
-//        @Override
-//        public void handleMessage(Message message) {
-//            if (message.what == StorePictureRunnable.SUCCESS)
-//            {
-//                Log.i("zyj", message.getData().getString("filename"));
-//            }
-//            String temp = PictureApi.tryToFindLocalPicture("201601220712e3081db0bde94949a0e0b1ccd49f1343");
-//            if (temp == null)
-//                Log.i("zyj", "picture not found");
-//            else
-//                Log.i("zyj", temp);
-//        }
-//    };
 }
