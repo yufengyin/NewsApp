@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
-        zyjDebug();
         initial = true;
 
         // 将在tabs_LinearLayout里面添加需要的若干选项卡片。
@@ -274,11 +273,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-// -*-*- zyj debug code below -*-*-
-
-    public void zyjDebug() {
     }
 }
