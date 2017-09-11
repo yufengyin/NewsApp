@@ -82,6 +82,13 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
             f.mCategory = myInterestDataset[i];
             fragments.add(f);
         }
+        if(myInterestDataset.length < MyApplication.interestDateSet.length){
+            for(int i = myInterestDataset.length; i < MyApplication.interestDateSet.length; i++){
+                NewsFragment f = NewsFragment.newInstance(i);
+                f.mCategory = MyApplication.interestDateSet[i];
+                fragments.add(f);
+            }
+        }
         initiateNewsData();
     }
 
