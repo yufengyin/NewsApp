@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thirty.java.newsapp">
+    package="com.java.thirty.newsapp">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--连接网络权限，用于执行云端语音能力 -->
@@ -24,14 +24,14 @@
 
     <application
         android:allowBackup="true"
-        android:name="com.thirty.java.newsapp.MyApplication"
+        android:name="com.java.thirty.newsapp.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_title"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity">
+            android:name="com.java.thirty.newsapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,32 +40,32 @@
         </activity>
 
         <activity
-            android:name=".CollectActivity">
+            android:name="com.java.thirty.newsapp.CollectActivity">
 
         </activity>
 
         <activity
-            android:name=".SetActivity">
+            android:name="com.java.thirty.newsapp.SetActivity">
 
         </activity>
 
         <activity
-            android:name=".SearchActivity">
+            android:name="com.java.thirty.newsapp.SearchActivity">
 
         </activity>
 
         <activity
-            android:name=".NewsActivity">
+            android:name="com.java.thirty.newsapp.NewsActivity">
 
         </activity>
 
         <activity
-            android:name=".InterestSetActivity">
+            android:name="com.java.thirty.newsapp.InterestSetActivity">
 
         </activity>
 
         <activity
-            android:name=".FilterActivity">
+            android:name="com.java.thirty.newsapp.FilterActivity">
 
         </activity>
 

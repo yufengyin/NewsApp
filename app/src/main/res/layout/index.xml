@@ -33,11 +33,11 @@
         android:layout_height="match_parent"
         android:layout_weight="9">
 
-        <com.thirty.java.newsapp.NonSwipeableViewPager
+        <com.java.thirty.newsapp.NonSwipeableViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-        </com.thirty.java.newsapp.NonSwipeableViewPager>
+        </com.java.thirty.newsapp.NonSwipeableViewPager>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
