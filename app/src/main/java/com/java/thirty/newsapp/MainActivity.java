@@ -12,7 +12,6 @@ import android.view.View;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.iflytek.cloud.*;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.LinearLayout;
@@ -28,33 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
     private boolean initial = false;
-
-    //讯飞语音合成器
-    private SynthesizerListener mSynListener = new SynthesizerListener() {
-        //会话结束回调接口，没有错误时，error为null
-        public void onCompleted(SpeechError error) {
-        }
-        //缓冲进度回调
-        //percent为缓冲进度0~100，beginPos为缓冲音频在文本中开始位置，endPos表示缓冲音频在文本中结束位置，info为附加信息。
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-        }
-        //开始播放
-        public void onSpeakBegin() {
-        }
-        //暂停播放
-        public void onSpeakPaused() {
-        }
-        //播放进度回调
-        //percent为播放进度0~100,beginPos为播放音频在文本中开始位置，endPos表示播放音频在文本中结束位置.
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-        }
-        //恢复播放回调接口
-        public void onSpeakResumed() {
-        }
-        //会话事件回调接口
-        public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
-        }
-    };
 
     @Override
     public void onStart(){
@@ -210,18 +182,6 @@ public class MainActivity extends AppCompatActivity {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().applyDayNight();
         }
-
-        //讯飞初始化
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59b0ae8e");
-
-        //语音合成
-        SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer(MainActivity.this, null);
-        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");//设置发音人
-        mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
-        mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
-        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
-
-        mTts.startSpeaking("膜峰膜峰膜峰", mSynListener);
 
         //下拉加载更多
         swipeRefreshView = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
